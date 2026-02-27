@@ -16,5 +16,15 @@ export function stripLocalePrefix(pathname) {
 
 export function toLocalePath(pathname, locale) {
   const basePath = stripLocalePrefix(pathname);
+
+  if (locale === "fr") {
+    return basePath === "/" ? "/fr" : `/fr${basePath}`;
+  }
+
+  return basePath;
+}
+
+export function swapLocalePath(pathname, locale) {
+  const basePath = stripLocalePrefix(pathname);
   return basePath === "/" ? `/${locale}` : `/${locale}${basePath}`;
 }

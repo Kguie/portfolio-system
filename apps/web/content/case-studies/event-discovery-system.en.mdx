@@ -1,0 +1,31 @@
+# Event Discovery System
+
+A modular event discovery platform designed to help users find relevant experiences across cities and categories.
+
+## Context
+
+Teams needed a reliable way to aggregate events from multiple providers while keeping search and filtering fast under peak traffic.
+
+## What I Built
+
+- Unified ingestion pipeline for provider feeds.
+- Normalization layer for taxonomy and venue metadata.
+- Query-focused API for search, facets, and relevance ranking.
+
+## Architecture Snapshot
+
+```ts
+export async function searchEvents(query: string) {
+  const normalized = normalizeQuery(query);
+  const results = await eventIndex.search(normalized, {
+    facets: ["city", "category", "date"],
+    limit: 20,
+  });
+
+  return rerankByFreshness(results);
+}
+```
+
+## Outcome
+
+The system reduced average search response times and improved content quality through consistent data normalization.

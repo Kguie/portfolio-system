@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
-import { toLocalePath } from "@/lib/locale-routing.mjs";
+import { swapLocalePath, toLocalePath } from "@/lib/locale-routing.mjs";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,8 +32,8 @@ export function SiteNavbar({ locale }: SiteNavbarProps) {
 
   const currentPath = pathname || "/";
   const query = searchParams.toString();
-  const enHref = toLocalePath(currentPath, "en");
-  const frHref = toLocalePath(currentPath, "fr");
+  const enHref = swapLocalePath(currentPath, "en");
+  const frHref = swapLocalePath(currentPath, "fr");
   const enSwitchHref = query ? `${enHref}?${query}` : enHref;
   const frSwitchHref = query ? `${frHref}?${query}` : frHref;
 

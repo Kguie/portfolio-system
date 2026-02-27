@@ -8,10 +8,108 @@
     "blog": "Blog"
   },
   "Home": {
+    "metaTitle": "Accueil",
+    "metaDescription": "Page d'accueil du portfolio axée sur l'architecture, les projets, les services et la collaboration.",
     "headline": "Créer des produits numériques robustes qui passent à l'échelle.",
     "subheadline": "Je conçois des systèmes, livre des produits full-stack et aide les équipes à avancer plus vite.",
     "ctaArchitecture": "Voir l'architecture",
     "ctaCaseStudy": "Lire l'étude de cas",
     "ctaWorkWithMe": "Travailler avec moi"
+  },
+  "ArchitecturePage": {
+    "metaTitle": "Architecture",
+    "metaDescription": "Vue d'ensemble du système: application mobile, couche API, services métier et intégrations plateforme.",
+    "title": "Architecture",
+    "subtitle": "Une vue concrète de la collaboration entre le client, le backend et les services de plateforme en production.",
+    "comingSoonLabel": "Bientôt disponible",
+    "comingSoonTitle": "Des analyses d'architecture sont en préparation",
+    "comingSoonBody": "Je prépare des contenus détaillés sur la scalabilité, la fiabilité et les choix d'architecture produit.",
+    "overviewTitle": "Vue d'ensemble du système",
+    "overviewSubtitle": "Les clients mobiles envoient des requêtes via l'API Go, qui orchestre les services métier et les intégrations de plateforme.",
+    "platformLabel": "Intégrations plateforme",
+    "labels": {
+      "role": "Rôle",
+      "tech": "Technologie clé"
+    },
+    "cards": {
+      "mobile": {
+        "title": "Mobile",
+        "role": "Application client orientée utilisateur",
+        "tech": "Expo",
+        "bullet1": "Capture les intentions utilisateur et les interactions.",
+        "bullet2": "Consomme des endpoints API typés pour les contenus et actions."
+      },
+      "api": {
+        "title": "API",
+        "role": "Passerelle principale et couche d'orchestration",
+        "tech": "Go",
+        "bullet1": "Gère l'authentification, la validation et le formatage des requêtes.",
+        "bullet2": "Relaie le trafic vers les services métier avec faible latence."
+      },
+      "services": {
+        "title": "Services",
+        "role": "Logique métier et workflows domaine",
+        "tech": "Modules de services internes",
+        "bullet1": "Exécute la découverte d'événements, le ranking et les règles de cycle de vie.",
+        "bullet2": "Coordonne la persistance, la messagerie et la télémétrie."
+      },
+      "postgres": {
+        "title": "Postgres",
+        "role": "Source de vérité pour les données relationnelles",
+        "tech": "PostgreSQL",
+        "bullet1": "Stocke utilisateurs, événements et états transactionnels.",
+        "bullet2": "Supporte les requêtes de découverte filtrée."
+      },
+      "fcm": {
+        "title": "FCM",
+        "role": "Canal de diffusion des notifications push",
+        "tech": "Firebase Cloud Messaging",
+        "bullet1": "Envoie des rappels et notifications pilotées par événements.",
+        "bullet2": "Permet des envois segmentés selon le contexte d'audience."
+      },
+      "observability": {
+        "title": "Observabilité",
+        "role": "Visibilité opérationnelle et réponse incident",
+        "tech": "Métriques, logs, traces",
+        "bullet1": "Surveille latence, erreurs et santé des dépendances.",
+        "bullet2": "Accélère le diagnostic via des signaux de télémétrie corrélés."
+      }
+    }
+  },
+  "ProjectsPage": {
+    "metaTitle": "Projets",
+    "metaDescription": "Une sélection de produits livrés, de prototypes et d'études de cas en production.",
+    "title": "Projets",
+    "subtitle": "Une sélection de produits livrés, prototypes et expériences en production.",
+    "comingSoonLabel": "Bientôt disponible",
+    "comingSoonTitle": "Les études de cas projets arrivent",
+    "comingSoonBody": "Vous y trouverez les objectifs, choix d'implémentation et résultats mesurables."
+  },
+  "LabsPage": {
+    "metaTitle": "Laboratoires",
+    "metaDescription": "Des expérimentations pour tester des idées produit, des workflows et de nouveaux outils.",
+    "title": "Laboratoires",
+    "subtitle": "Des expérimentations pour tester des idées, des workflows et de nouveaux outils.",
+    "comingSoonLabel": "Bientôt disponible",
+    "comingSoonTitle": "De nouvelles expérimentations arrivent",
+    "comingSoonBody": "Je documente actuellement des prototypes sélectionnés et les enseignements tirés."
+  },
+  "ServicesPage": {
+    "metaTitle": "Services",
+    "metaDescription": "Ma façon d'accompagner les équipes sur l'architecture, la livraison et la stratégie technique.",
+    "title": "Services",
+    "subtitle": "Ma façon d'accompagner les équipes sur l'architecture, la livraison produit et la stratégie technique.",
+    "comingSoonLabel": "Bientôt disponible",
+    "comingSoonTitle": "Les détails des services seront publiés bientôt",
+    "comingSoonBody": "Je finalise les formats d'accompagnement, le périmètre et les modalités de collaboration."
+  },
+  "HirePage": {
+    "metaTitle": "M'engager",
+    "metaDescription": "Collaborons sur votre prochain produit, votre plateforme ou une initiative prioritaire.",
+    "title": "M'engager",
+    "subtitle": "Collaborons sur votre prochain produit, votre plateforme ou une initiative prioritaire.",
+    "comingSoonLabel": "Bientôt disponible",
+    "comingSoonTitle": "Disponibilités et modalités à venir",
+    "comingSoonBody": "Je prépare un résumé clair des délais, du processus et des prochaines étapes."
   }
 }

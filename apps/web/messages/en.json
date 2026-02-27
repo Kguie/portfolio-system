@@ -8,10 +8,108 @@
     "blog": "Blog"
   },
   "Home": {
+    "metaTitle": "Home",
+    "metaDescription": "Portfolio homepage focused on architecture, projects, services, and collaboration.",
     "headline": "Building resilient digital products that scale.",
     "subheadline": "I design systems, ship full-stack products, and help teams move faster with confidence.",
     "ctaArchitecture": "Explore Architecture",
     "ctaCaseStudy": "Read Case Study",
     "ctaWorkWithMe": "Work With Me"
+  },
+  "ArchitecturePage": {
+    "metaTitle": "Architecture",
+    "metaDescription": "System overview of the mobile app, API layer, services, and platform integrations.",
+    "title": "Architecture",
+    "subtitle": "A practical view of how client, backend, and platform services work together in production.",
+    "comingSoonLabel": "Coming Soon",
+    "comingSoonTitle": "Architecture deep dives in progress",
+    "comingSoonBody": "I am preparing detailed write-ups on scalability, reliability, and product architecture.",
+    "overviewTitle": "System Overview",
+    "overviewSubtitle": "Mobile clients send requests through the Go API, which coordinates domain services and platform integrations.",
+    "platformLabel": "Platform Integrations",
+    "labels": {
+      "role": "Role",
+      "tech": "Key Tech"
+    },
+    "cards": {
+      "mobile": {
+        "title": "Mobile",
+        "role": "User-facing client application",
+        "tech": "Expo",
+        "bullet1": "Captures user intent and interaction events.",
+        "bullet2": "Consumes typed API endpoints for content and actions."
+      },
+      "api": {
+        "title": "API",
+        "role": "Primary gateway and orchestration layer",
+        "tech": "Go",
+        "bullet1": "Handles auth, validation, and request shaping.",
+        "bullet2": "Routes traffic to domain services with low latency."
+      },
+      "services": {
+        "title": "Services",
+        "role": "Domain business logic and workflows",
+        "tech": "Internal service modules",
+        "bullet1": "Executes event discovery, ranking, and lifecycle rules.",
+        "bullet2": "Coordinates persistence, messaging, and telemetry."
+      },
+      "postgres": {
+        "title": "Postgres",
+        "role": "System of record for relational data",
+        "tech": "PostgreSQL",
+        "bullet1": "Stores users, events, and transactional state.",
+        "bullet2": "Supports query patterns for filtered discovery."
+      },
+      "fcm": {
+        "title": "FCM",
+        "role": "Push notification delivery channel",
+        "tech": "Firebase Cloud Messaging",
+        "bullet1": "Delivers reminders and event-driven notifications.",
+        "bullet2": "Supports segmented messaging per audience context."
+      },
+      "observability": {
+        "title": "Observability",
+        "role": "Operational visibility and incident response",
+        "tech": "Metrics, logs, traces",
+        "bullet1": "Tracks latency, errors, and dependency health.",
+        "bullet2": "Speeds diagnosis with correlated telemetry signals."
+      }
+    }
+  },
+  "ProjectsPage": {
+    "metaTitle": "Projects",
+    "metaDescription": "A curated set of shipped products, prototypes, and production project case studies.",
+    "title": "Projects",
+    "subtitle": "A curated set of shipped products, prototypes, and production experiences.",
+    "comingSoonLabel": "Coming Soon",
+    "comingSoonTitle": "Project case studies are being prepared",
+    "comingSoonBody": "Expect focused breakdowns of goals, implementation choices, and measurable outcomes."
+  },
+  "LabsPage": {
+    "metaTitle": "Labs",
+    "metaDescription": "Experimental builds for testing product ideas, workflows, and emerging tools.",
+    "title": "Labs",
+    "subtitle": "Experimental builds where I test ideas, workflows, and emerging tools.",
+    "comingSoonLabel": "Coming Soon",
+    "comingSoonTitle": "New experiments are on the way",
+    "comingSoonBody": "I am documenting selected prototypes and what they taught me about product velocity."
+  },
+  "ServicesPage": {
+    "metaTitle": "Services",
+    "metaDescription": "How I partner with teams on architecture, delivery, and technical strategy.",
+    "title": "Services",
+    "subtitle": "How I partner with teams on architecture, product delivery, and technical strategy.",
+    "comingSoonLabel": "Coming Soon",
+    "comingSoonTitle": "Service details will be published shortly",
+    "comingSoonBody": "I am finalizing scope, engagement models, and delivery formats for upcoming collaborations."
+  },
+  "HirePage": {
+    "metaTitle": "Hire",
+    "metaDescription": "Work together on your next product, platform, or high-priority initiative.",
+    "title": "Hire",
+    "subtitle": "Let’s work together on your next product, platform, or high-priority initiative.",
+    "comingSoonLabel": "Coming Soon",
+    "comingSoonTitle": "Availability and engagement options coming soon",
+    "comingSoonBody": "I am preparing a concise overview of timelines, process, and ways to get started."
   }
 }

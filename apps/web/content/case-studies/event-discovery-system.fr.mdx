@@ -1,0 +1,31 @@
+# Système de découverte d'événements
+
+Une plateforme modulaire de découverte d'événements pour aider les utilisateurs à trouver des expériences pertinentes selon la ville et la catégorie.
+
+## Contexte
+
+Les équipes avaient besoin d'un moyen fiable d'agréger des événements provenant de plusieurs fournisseurs tout en gardant une recherche rapide aux heures de pointe.
+
+## Réalisation
+
+- Pipeline d'ingestion unifié pour les flux partenaires.
+- Couche de normalisation pour la taxonomie et les métadonnées des lieux.
+- API orientée requêtes pour la recherche, les facettes et le classement de pertinence.
+
+## Extrait d'architecture
+
+```ts
+export async function rechercherEvenements(requete: string) {
+  const normalisee = normaliserRequete(requete);
+  const resultats = await indexEvenements.search(normalisee, {
+    facets: ["ville", "categorie", "date"],
+    limit: 20,
+  });
+
+  return reclasserParFraicheur(resultats);
+}
+```
+
+## Résultat
+
+Le système a réduit le temps moyen de réponse et amélioré la qualité des contenus grâce à une normalisation cohérente des données.

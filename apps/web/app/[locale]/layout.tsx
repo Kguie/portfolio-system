@@ -3,6 +3,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 import { SiteNavbar } from "@/components/site-navbar";
+import { SiteFooter } from "@/components/site-footer";
 
 const locales = ["en", "fr"] as const;
 
@@ -31,6 +32,7 @@ export default async function LocaleLayout({
     <NextIntlClientProvider locale={locale} messages={messages}>
       <SiteNavbar locale={locale} />
       {children}
+      <SiteFooter />
     </NextIntlClientProvider>
   );
 }
