@@ -1,0 +1,17 @@
+{
+  "Nav": {
+    "architecture": "Architecture",
+    "projects": "Projects",
+    "labs": "Labs",
+    "services": "Services",
+    "hire": "Hire Me",
+    "blog": "Blog"
+  },
+  "Home": {
+    "headline": "Building resilient digital products that scale.",
+    "subheadline": "I design systems, ship full-stack products, and help teams move faster with confidence.",
+    "ctaArchitecture": "Explore Architecture",
+    "ctaCaseStudy": "Read Case Study",
+    "ctaWorkWithMe": "Work With Me"
+  }
+}

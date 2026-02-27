@@ -1,0 +1,17 @@
+{
+  "Nav": {
+    "architecture": "Architecture",
+    "projects": "Projets",
+    "labs": "Laboratoires",
+    "services": "Services",
+    "hire": "M'engager",
+    "blog": "Blog"
+  },
+  "Home": {
+    "headline": "Créer des produits numériques robustes qui passent à l'échelle.",
+    "subheadline": "Je conçois des systèmes, livre des produits full-stack et aide les équipes à avancer plus vite.",
+    "ctaArchitecture": "Voir l'architecture",
+    "ctaCaseStudy": "Lire l'étude de cas",
+    "ctaWorkWithMe": "Travailler avec moi"
+  }
+}
