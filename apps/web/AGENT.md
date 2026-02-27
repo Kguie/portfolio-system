@@ -18,6 +18,7 @@ Do not switch package manager.
 - yarn build   → Build for production
 - yarn start   → Start production server
 - yarn lint    → Run ESLint
+- yarn test    → Run tests
 
 ---
 
@@ -54,5 +55,6 @@ Do not switch package manager.
 Before finalizing changes:
 
 - yarn lint passes
+- yarn test passes
 - yarn build succeeds
 - No hydration or console errors in dev mode

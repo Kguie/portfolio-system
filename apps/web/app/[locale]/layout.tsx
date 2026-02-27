@@ -2,6 +2,8 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 
+import { SiteNavbar } from "@/components/site-navbar";
+
 const locales = ["en", "fr"] as const;
 
 type LocaleLayoutProps = {
@@ -27,6 +29,7 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
+      <SiteNavbar locale={locale} />
       {children}
     </NextIntlClientProvider>
   );

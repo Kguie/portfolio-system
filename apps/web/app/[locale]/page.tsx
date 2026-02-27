@@ -1,42 +1,35 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import Link from "next/link";
+
+import { Spotlight } from "@/components/aceternity/spotlight";
+import { Button } from "@/components/ui/button";
+import { toLocalePath } from "@/lib/locale-routing.mjs";
 
 export default async function HomePage() {
-  const tNav = await getTranslations("Nav");
   const tHome = await getTranslations("Home");
+  const locale = (await getLocale()) === "fr" ? "fr" : "en";
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 px-6 font-sans">
-      <main className="w-full max-w-4xl space-y-10 rounded-2xl bg-white p-10 shadow-sm">
-        <nav className="flex flex-wrap gap-4 text-sm font-medium text-zinc-700">
-          <span>{tNav("architecture")}</span>
-          <span>{tNav("projects")}</span>
-          <span>{tNav("labs")}</span>
-          <span>{tNav("services")}</span>
-          <span>{tNav("hire")}</span>
-          <span>{tNav("blog")}</span>
-        </nav>
-
-        <section className="space-y-4">
-          <h1 className="text-4xl font-bold tracking-tight text-zinc-900">
+    <main className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden px-6 py-16">
+      <Spotlight />
+      <section className="mx-auto w-full max-w-4xl text-center">
+        <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-7xl">
             {tHome("headline")}
-          </h1>
-          <p className="max-w-2xl text-lg text-zinc-600">
+        </h1>
+        <p className="mx-auto mt-6 max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
             {tHome("subheadline")}
-          </p>
-        </section>
-
-        <section className="flex flex-wrap gap-3">
-          <button className="rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white">
+        </p>
+        <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Button asChild size="lg" className="rounded-full px-6">
+            <Link href={toLocalePath("/architecture", locale)}>
             {tHome("ctaArchitecture")}
-          </button>
-          <button className="rounded-full border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-800">
-            {tHome("ctaCaseStudy")}
-          </button>
-          <button className="rounded-full border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-800">
-            {tHome("ctaWorkWithMe")}
-          </button>
-        </section>
-      </main>
-    </div>
+            </Link>
+          </Button>
+          <Button asChild variant="outline" size="lg" className="rounded-full px-6">
+            <Link href={toLocalePath("/hire", locale)}>{tHome("ctaWorkWithMe")}</Link>
+          </Button>
+        </div>
+      </section>
+    </main>
   );
 }
