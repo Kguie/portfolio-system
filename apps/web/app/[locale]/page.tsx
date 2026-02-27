@@ -5,11 +5,60 @@ import Link from "next/link";
 import { Spotlight } from "@/components/aceternity/spotlight";
 import { LayoutContainer } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
-import { toLocalePath } from "@/lib/locale-routing.mjs";
+import { GlowCard, Panel } from "@/components/ui/panel";
+import { swapLocalePath } from "@/lib/locale-routing.mjs";
 
 type PageProps = {
   params: Promise<{ locale: string }>;
 };
+
+type ArchitectureNodeProps = {
+  title: string;
+  subtitle: string;
+  kind: "mobile" | "api" | "services" | "platform";
+};
+
+function ArchitectureNode({ title, subtitle, kind }: ArchitectureNodeProps) {
+  const icon =
+    kind === "mobile" ? (
+      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden>
+        <rect x="7" y="2.8" width="10" height="18.4" rx="2.3" stroke="currentColor" strokeWidth="1.5" />
+        <circle cx="12" cy="17.8" r="0.9" fill="currentColor" />
+      </svg>
+    ) : kind === "api" ? (
+      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden>
+        <path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <circle cx="17" cy="17" r="2" stroke="currentColor" strokeWidth="1.5" />
+      </svg>
+    ) : kind === "services" ? (
+      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden>
+        <rect x="3" y="4" width="8" height="6" rx="1.2" stroke="currentColor" strokeWidth="1.5" />
+        <rect x="13" y="4" width="8" height="6" rx="1.2" stroke="currentColor" strokeWidth="1.5" />
+        <rect x="8" y="14" width="8" height="6" rx="1.2" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M12 10v4M7 10l5 4M17 10l-5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+      </svg>
+    ) : (
+      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden>
+        <ellipse cx="12" cy="6.5" rx="7" ry="3.5" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M5 6.5v7c0 1.9 3.1 3.5 7 3.5s7-1.6 7-3.5v-7" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M5 10c0 1.9 3.1 3.5 7 3.5s7-1.6 7-3.5" stroke="currentColor" strokeWidth="1.2" />
+      </svg>
+    );
+
+  return (
+    <GlowCard className="group relative p-3.5 sm:p-4">
+      <div className="flex items-center gap-2">
+        <span className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-cyan-300/25 bg-cyan-300/10 text-cyan-200 transition-colors group-hover:border-cyan-300/40 group-hover:text-cyan-100">
+          {icon}
+        </span>
+        <p className="text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground">
+          {title}
+        </p>
+      </div>
+      <p className="mt-2 text-sm text-foreground/92">{subtitle}</p>
+    </GlowCard>
+  );
+}
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
@@ -31,25 +80,249 @@ export default async function HomePage({ params }: PageProps) {
     <main className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden py-16">
       <Spotlight />
       <LayoutContainer>
-        <section className="mx-auto w-full max-w-4xl text-center">
+        <section className="relative isolate mx-auto w-full max-w-4xl text-center">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute left-1/2 top-3 -z-10 h-56 w-[78%] -translate-x-1/2 rounded-full bg-[radial-gradient(55%_62%_at_50%_50%,rgba(34,211,238,0.22),rgba(34,211,238,0.06)_45%,transparent_75%)] blur-2xl sm:h-64"
+          />
           <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-7xl">
             {tHome("headline")}
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
             {tHome("subheadline")}
           </p>
+          <Panel className="mx-auto mt-6 flex max-w-fit flex-wrap items-center justify-center gap-2 rounded-full px-4 py-2 text-xs text-muted-foreground sm:text-sm">
+            <span className="font-medium text-foreground/90">{tHome("statusLabel")}:</span>
+            <span>{tHome("statusBuilding")}</span>
+            <span className="opacity-55">•</span>
+            <span>{tHome("statusGoApi")}</span>
+            <span className="opacity-55">•</span>
+            <span>{tHome("statusExpoClient")}</span>
+            <span className="opacity-55">•</span>
+            <span>{tHome("statusObservability")}</span>
+          </Panel>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button asChild size="lg" className="rounded-full px-6">
-              <Link href={toLocalePath("/architecture", resolvedLocale)}>
-                {tHome("ctaArchitecture")}
-              </Link>
-            </Button>
+            <div className="rounded-full bg-gradient-to-r from-cyan-300/45 via-sky-300/35 to-cyan-300/45 p-[1px] shadow-[0_0_0_1px_rgba(125,211,252,0.22),0_0_22px_rgba(34,211,238,0.15)]">
+              <Button asChild size="lg" className="rounded-full bg-background px-6 text-foreground hover:bg-background/90">
+                <Link href={swapLocalePath("/architecture", resolvedLocale)}>
+                  {tHome("ctaArchitecture")}
+                </Link>
+              </Button>
+            </div>
             <Button asChild variant="outline" size="lg" className="rounded-full px-6">
-              <Link href={toLocalePath("/hire", resolvedLocale)}>
+              <Link href={swapLocalePath("/hire", resolvedLocale)}>
                 {tHome("ctaWorkWithMe")}
               </Link>
             </Button>
           </div>
+        </section>
+
+        <section className="mx-auto mt-14 grid w-full max-w-6xl gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <Panel className="order-1 md:col-span-2 p-6">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
+                  {tHome("panelArchitectureTitle")}
+                </h2>
+                <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+                  {tHome("panelArchitectureSubtitle")}
+                </p>
+              </div>
+              <Button asChild variant="outline" size="sm" className="rounded-full">
+                <Link href={swapLocalePath("/architecture", resolvedLocale)}>
+                  {tHome("panelArchitectureCta")}
+                </Link>
+              </Button>
+            </div>
+            <div className="relative mt-5">
+              <div className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-1/2 hidden -translate-y-1/2 sm:block">
+                <div className="h-px bg-gradient-to-r from-cyan-300/0 via-cyan-300/45 to-cyan-300/0" />
+              </div>
+              <div className="relative grid gap-3 sm:grid-cols-4">
+                <ArchitectureNode
+                  kind="mobile"
+                  title={tHome("architectureFlowMobile")}
+                  subtitle="Expo"
+                />
+                <ArchitectureNode
+                  kind="api"
+                  title={tHome("architectureFlowApi")}
+                  subtitle="Go"
+                />
+                <ArchitectureNode
+                  kind="services"
+                  title={tHome("architectureFlowServices")}
+                  subtitle={tHome("architectureFlowServicesStack")}
+                />
+                <ArchitectureNode
+                  kind="platform"
+                  title={tHome("architectureFlowPlatform")}
+                  subtitle={tHome("architectureFlowPlatformStack")}
+                />
+              </div>
+            </div>
+          </Panel>
+
+          <Panel className="order-4 md:order-2 p-6">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h2 className="text-xl font-semibold tracking-tight">
+                  {tHome("panelMetricsTitle")}
+                </h2>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {tHome("panelMetricsSubtitle")}
+                </p>
+                <p className="mt-2 text-xs text-muted-foreground/85">
+                  {tHome("metricsDemoNote")}
+                </p>
+              </div>
+            </div>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <GlowCard className="p-3">
+                <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">CPU</p>
+                <p className="mt-1 text-2xl font-semibold tracking-tight tabular-nums">{tHome("metricCpu")}</p>
+                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-muted/45">
+                  <div className="metric-shimmer h-full w-[43%] rounded-full bg-gradient-to-r from-cyan-300/65 via-cyan-200/70 to-cyan-300/60" />
+                </div>
+              </GlowCard>
+              <GlowCard className="p-3">
+                <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Memory</p>
+                <p className="mt-1 text-2xl font-semibold tracking-tight tabular-nums">{tHome("metricMemory")}</p>
+                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-muted/45">
+                  <div className="metric-shimmer h-full w-[68%] rounded-full bg-gradient-to-r from-cyan-300/65 via-cyan-200/70 to-cyan-300/60" />
+                </div>
+              </GlowCard>
+              <GlowCard className="p-3">
+                <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Requests</p>
+                <p className="mt-1 text-2xl font-semibold tracking-tight tabular-nums">{tHome("metricRequests")}</p>
+              </GlowCard>
+              <GlowCard className="p-3">
+                <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Uptime</p>
+                <p className="mt-1 text-2xl font-semibold tracking-tight tabular-nums">{tHome("metricUptime")}</p>
+              </GlowCard>
+            </div>
+            <Button asChild variant="outline" size="sm" className="mt-5 w-full rounded-full">
+              <Link href={swapLocalePath("/labs", resolvedLocale)}>
+                {tHome("panelMetricsCta")}
+              </Link>
+            </Button>
+          </Panel>
+
+          <Panel className="order-2 md:order-3 md:col-span-2 p-6">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
+                  {tHome("panelCaseStudyTitle")}
+                </h2>
+                <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+                  {tHome("panelCaseStudySubtitle")}
+                </p>
+              </div>
+              <Button asChild variant="outline" size="sm" className="rounded-full">
+                <Link
+                  href={swapLocalePath(
+                    "/projects/event-discovery-system",
+                    resolvedLocale,
+                  )}
+                >
+                  {tHome("panelCaseStudyCta")}
+                </Link>
+              </Button>
+            </div>
+            <ul className="mt-5 grid gap-3 sm:grid-cols-3">
+              <GlowCard className="p-4 text-sm text-muted-foreground">
+                <p>{tHome("caseStudyPoint1")}</p>
+              </GlowCard>
+              <GlowCard className="p-4 text-sm text-muted-foreground">
+                <p>{tHome("caseStudyPoint2")}</p>
+              </GlowCard>
+              <GlowCard className="p-4 text-sm text-muted-foreground">
+                <p>{tHome("caseStudyPoint3")}</p>
+              </GlowCard>
+            </ul>
+          </Panel>
+
+          <Panel className="order-3 md:order-4 p-6">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h2 className="text-xl font-semibold tracking-tight">
+                  {tHome("panelServicesTitle")}
+                </h2>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {tHome("panelServicesSubtitle")}
+                </p>
+              </div>
+            </div>
+            <div className="mt-5 space-y-3">
+              <GlowCard className="p-3">
+                <p className="text-sm font-medium">{tHome("serviceItem1")}</p>
+              </GlowCard>
+              <GlowCard className="p-3">
+                <p className="text-sm font-medium">{tHome("serviceItem2")}</p>
+              </GlowCard>
+              <GlowCard className="p-3">
+                <p className="text-sm font-medium">{tHome("serviceItem3")}</p>
+              </GlowCard>
+            </div>
+            <Button asChild variant="outline" size="sm" className="mt-5 w-full rounded-full">
+              <Link href={swapLocalePath("/services", resolvedLocale)}>
+                {tHome("panelServicesCta")}
+              </Link>
+            </Button>
+          </Panel>
+
+          <Panel className="order-5 md:order-5 md:col-span-2 xl:col-span-3 p-6">
+            <div className="grid gap-5 lg:grid-cols-[1fr_1fr]">
+              <div>
+                <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
+                  {tHome("panelLabsTitle")}
+                </h2>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {tHome("panelLabsSubtitle")}
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Button asChild variant="outline" size="sm" className="rounded-full">
+                    <Link href={swapLocalePath("/labs", resolvedLocale)}>
+                      {tHome("labsShortcut1")}
+                    </Link>
+                  </Button>
+                  <Button asChild variant="outline" size="sm" className="rounded-full">
+                    <Link href={swapLocalePath("/projects", resolvedLocale)}>
+                      {tHome("labsShortcut2")}
+                    </Link>
+                  </Button>
+                  <Button asChild variant="outline" size="sm" className="rounded-full">
+                    <Link href={swapLocalePath("/labs", resolvedLocale)}>
+                      {tHome("labsShortcut3")}
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+              <GlowCard className="p-4 sm:p-5">
+                <h3 className="text-base font-semibold tracking-tight">
+                  {tHome("askTitle")}
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {tHome("askSubtitle")}
+                </p>
+                <div className="mt-4 flex gap-2">
+                  <input
+                    type="text"
+                    placeholder={tHome("askPlaceholder")}
+                    className="h-9 w-full rounded-md border border-border/70 bg-background/70 px-3 text-sm text-foreground outline-none transition-colors focus:border-primary/60"
+                  />
+                  <Button size="sm" className="rounded-md px-4">
+                    {tHome("askButton")}
+                  </Button>
+                </div>
+                <Button asChild variant="outline" size="sm" className="mt-4 rounded-full">
+                  <Link href={swapLocalePath("/labs", resolvedLocale)}>
+                    {tHome("panelLabsCta")}
+                  </Link>
+                </Button>
+              </GlowCard>
+            </div>
+          </Panel>
         </section>
       </LayoutContainer>
     </main>

@@ -4,7 +4,7 @@ import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
-import { toLocalePath } from "./locale-routing.mjs";
+import { swapLocalePath } from "./locale-routing.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,12 +33,12 @@ test("required localized route files exist", () => {
 
 test("navbar links resolve correctly for english locale", () => {
   for (const href of navLinks) {
-    assert.equal(toLocalePath(href, "en"), href);
+    assert.equal(swapLocalePath(href, "en"), `/en${href}`);
   }
 });
 
 test("navbar links resolve correctly for french locale", () => {
   for (const href of navLinks) {
-    assert.equal(toLocalePath(href, "fr"), `/fr${href}`);
+    assert.equal(swapLocalePath(href, "fr"), `/fr${href}`);
   }
 });

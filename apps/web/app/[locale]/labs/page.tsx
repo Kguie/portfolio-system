@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 import { LayoutContainer } from "@/components/layout/container";
+import { GlowCard } from "@/components/ui/panel";
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -34,7 +35,7 @@ export default async function LabsPage({ params }: PageProps) {
             {t("subtitle")}
           </p>
 
-          <div className="mx-auto mt-12 max-w-2xl rounded-2xl border border-border/70 bg-card/70 p-8 text-left shadow-sm backdrop-blur">
+          <GlowCard className="mx-auto mt-12 max-w-2xl p-8 text-left">
             <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
               {t("comingSoonLabel")}
             </p>
@@ -44,7 +45,7 @@ export default async function LabsPage({ params }: PageProps) {
             <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
               {t("comingSoonBody")}
             </p>
-          </div>
+          </GlowCard>
         </section>
       </LayoutContainer>
     </main>

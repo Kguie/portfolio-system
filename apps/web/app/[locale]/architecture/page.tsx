@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 import { LayoutContainer } from "@/components/layout/container";
+import { GlowCard, Panel } from "@/components/ui/panel";
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -41,6 +42,33 @@ export default async function ArchitecturePage({ params }: PageProps) {
     { key: "observability", tech: t("cards.observability.tech") },
   ] as const;
 
+  const topCards = [...flowCards] as const;
+
+  function NodeCard({
+    card,
+  }: {
+    card: { key: string; tech: string };
+  }) {
+    return (
+      <GlowCard className="relative h-full min-h-[15.25rem] p-5">
+        <p className="text-xs font-medium uppercase tracking-[0.13em] text-muted-foreground">
+          {t(`cards.${card.key}.title`)}
+        </p>
+        <p className="mt-3 text-sm text-muted-foreground">
+          <span className="font-medium text-foreground">{t("labels.role")}:</span>{" "}
+          {t(`cards.${card.key}.role`)}
+        </p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          <span className="font-medium text-foreground">{t("labels.tech")}:</span> {card.tech}
+        </p>
+        <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+          <li>{t(`cards.${card.key}.bullet1`)}</li>
+          <li>{t(`cards.${card.key}.bullet2`)}</li>
+        </ul>
+      </GlowCard>
+    );
+  }
+
   return (
     <main className="relative py-16 sm:py-20">
       <LayoutContainer>
@@ -53,7 +81,7 @@ export default async function ArchitecturePage({ params }: PageProps) {
           </p>
         </section>
 
-        <section className="mx-auto mt-14 w-full max-w-6xl rounded-3xl border border-border/70 bg-card/50 p-6 text-left shadow-sm backdrop-blur sm:p-8">
+        <Panel className="mx-auto mt-14 w-full max-w-6xl rounded-3xl p-6 text-left sm:p-8">
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             {t("overviewTitle")}
           </h2>
@@ -61,69 +89,43 @@ export default async function ArchitecturePage({ params }: PageProps) {
             {t("overviewSubtitle")}
           </p>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-[1fr_auto_1fr_auto_1fr]">
-            {flowCards.map((card, index) => (
-              <div
-                key={card.key}
-                className="contents"
-              >
-                <article className="group rounded-2xl border border-border/70 bg-background/80 p-5 transition-all duration-200 hover:border-primary/50 hover:shadow-[0_0_0_1px_rgba(148,163,184,0.28),0_0_32px_rgba(14,165,233,0.14)]">
-                  <p className="text-xs font-medium uppercase tracking-[0.13em] text-muted-foreground">
-                    {t(`cards.${card.key}.title`)}
-                  </p>
-                  <p className="mt-3 text-sm text-muted-foreground">
-                    <span className="font-medium text-foreground">{t("labels.role")}:</span>{" "}
-                    {t(`cards.${card.key}.role`)}
-                  </p>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    <span className="font-medium text-foreground">{t("labels.tech")}:</span> {card.tech}
-                  </p>
-                  <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
-                    <li>{t(`cards.${card.key}.bullet1`)}</li>
-                    <li>{t(`cards.${card.key}.bullet2`)}</li>
-                  </ul>
-                </article>
-                {index < flowCards.length - 1 ? (
-                  <div className="hidden items-center justify-center text-muted-foreground md:flex">
-                    <span className="text-lg">→</span>
-                  </div>
-                ) : null}
+          <div className="relative mt-8 space-y-10">
+            <div className="relative">
+              <div className="pointer-events-none absolute inset-x-0 top-1/2 hidden -translate-y-1/2 md:block">
+                <div className="mx-auto h-px w-[66%] bg-gradient-to-r from-cyan-300/0 via-cyan-300/55 to-cyan-300/0" />
               </div>
-            ))}
-          </div>
+              <div className="grid gap-4 md:grid-cols-3">
+                {topCards.map((card) => (
+                  <NodeCard key={card.key} card={card} />
+                ))}
+              </div>
+            </div>
 
-          <div className="mt-8 flex items-center gap-3 text-muted-foreground">
-            <div className="h-px flex-1 bg-border" />
-            <span className="text-xs font-medium uppercase tracking-[0.12em]">
-              {t("platformLabel")}
-            </span>
-            <div className="h-px flex-1 bg-border" />
-          </div>
+            <div className="relative">
+              <div className="pointer-events-none absolute -top-10 left-0 right-0 hidden h-12 md:block">
+                <span className="absolute left-[83.333%] top-0 h-6 w-px -translate-x-1/2 bg-gradient-to-b from-cyan-300/70 to-cyan-300/35" />
+                <span className="absolute left-[16.666%] right-[16.666%] top-6 h-px bg-gradient-to-r from-cyan-300/35 via-cyan-300/60 to-cyan-300/35" />
+                <span className="absolute left-[16.666%] top-6 h-6 w-px -translate-x-1/2 bg-gradient-to-b from-cyan-300/70 to-cyan-300/35" />
+                <span className="absolute left-1/2 top-6 h-6 w-px -translate-x-1/2 bg-gradient-to-b from-cyan-300/70 to-cyan-300/35" />
+                <span className="absolute left-[83.333%] top-6 h-6 w-px -translate-x-1/2 bg-gradient-to-b from-cyan-300/70 to-cyan-300/35" />
+              </div>
 
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            {platformCards.map((card) => (
-              <article
-                key={card.key}
-                className="group rounded-2xl border border-border/70 bg-background/80 p-5 transition-all duration-200 hover:border-primary/50 hover:shadow-[0_0_0_1px_rgba(148,163,184,0.28),0_0_32px_rgba(14,165,233,0.14)]"
-              >
-                <p className="text-xs font-medium uppercase tracking-[0.13em] text-muted-foreground">
-                  {t(`cards.${card.key}.title`)}
-                </p>
-                <p className="mt-3 text-sm text-muted-foreground">
-                  <span className="font-medium text-foreground">{t("labels.role")}:</span>{" "}
-                  {t(`cards.${card.key}.role`)}
-                </p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  <span className="font-medium text-foreground">{t("labels.tech")}:</span> {card.tech}
-                </p>
-                <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
-                  <li>{t(`cards.${card.key}.bullet1`)}</li>
-                  <li>{t(`cards.${card.key}.bullet2`)}</li>
-                </ul>
-              </article>
-            ))}
+              <div className="mb-5 flex items-center gap-3 text-muted-foreground">
+                <div className="h-px flex-1 bg-border" />
+                <span className="text-xs font-medium uppercase tracking-[0.12em]">
+                  {t("platformLabel")}
+                </span>
+                <div className="h-px flex-1 bg-border" />
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-3">
+                {platformCards.map((card) => (
+                  <NodeCard key={card.key} card={card} />
+                ))}
+              </div>
+            </div>
           </div>
-        </section>
+        </Panel>
       </LayoutContainer>
     </main>
   );

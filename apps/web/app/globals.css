@@ -75,7 +75,17 @@
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(
+      68% 52% at 50% 10%,
+      rgba(34, 211, 238, 0.12),
+      rgba(34, 211, 238, 0.03) 38%,
+      transparent 72%
+    ),
+    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.12) 0.7px, transparent 1px),
+    radial-gradient(circle at 72% 68%, rgba(255, 255, 255, 0.08) 0.7px, transparent 1px),
+    var(--background);
+  background-size: auto, 42px 42px, 54px 54px, auto;
   color: var(--foreground);
   font-family:
     ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -104,4 +114,41 @@ body {
   50% {
     transform: translate3d(-14px, -8px, 0);
   }
+}
+
+@keyframes metricShimmer {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.28;
+  }
+  55% {
+    opacity: 0.14;
+  }
+  100% {
+    transform: translateX(220%);
+    opacity: 0;
+  }
+}
+
+.metric-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 42%;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 45%,
+    transparent 100%
+  );
+  filter: blur(0.4px);
+  animation: metricShimmer 4.8s ease-in-out infinite;
 }

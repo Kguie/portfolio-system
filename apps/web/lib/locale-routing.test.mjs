@@ -42,3 +42,7 @@ test("swapLocalePath switches between /en and /fr both ways", () => {
   assert.equal(swapLocalePath("/en", "fr"), "/fr");
   assert.equal(swapLocalePath("/fr", "en"), "/en");
 });
+
+test("swapLocalePath switches nested english path to explicit french path", () => {
+  assert.equal(swapLocalePath("/en/architecture", "fr"), "/fr/architecture");
+});
