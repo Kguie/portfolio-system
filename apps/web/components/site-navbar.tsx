@@ -126,17 +126,17 @@ export function SiteNavbar({ locale }: SiteNavbarProps) {
 
         <div className="flex items-center gap-2">
           <ExternalProfileLink
-            href="https://github.com/kguie"
+            href="/go/github"
             label="Open GitHub profile"
             icon="github"
           />
           <ExternalProfileLink
-            href="https://linkedin.com/in/kguieba"
+            href="/go/linkedin"
             label="Open LinkedIn profile"
             icon="linkedin"
           />
           <ExternalProfileLink
-            href="mailto:kevin.guieba@gmail.com"
+            href="/go/contact"
             label="Send email"
             icon="email"
           />

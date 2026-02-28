@@ -149,6 +149,9 @@ export default async function HomePage({ params }: PageProps) {
           <p className="mx-auto mt-6 max-w-3xl text-center text-sm tracking-wide text-white/60 md:text-base">
             {tHome("proofStrip")}
           </p>
+          <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-white/50">
+            {tHome("positioningLine")}
+          </p>
         </section>
 
         <section className="mx-auto mt-10 grid w-full max-w-6xl gap-4 md:grid-cols-5">

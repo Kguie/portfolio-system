@@ -1,12 +1,11 @@
+import { CopyEmailAction } from "@/components/copy-email-action";
 import { LayoutContainer } from "@/components/layout/container";
-import { getCvUrl } from "@/lib/cv";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 export async function SiteFooter() {
   const year = new Date().getFullYear();
-  const locale = await getLocale();
-  const t = await getTranslations("Cv");
-  const cvUrl = getCvUrl(locale);
+  const tCv = await getTranslations("Cv");
+  const tFooter = await getTranslations("Footer");
 
   return (
     <footer className="border-t border-border/70 bg-background/70">
@@ -14,7 +13,7 @@ export async function SiteFooter() {
         <div className="flex flex-wrap items-center gap-4">
           <a
             className="transition-colors hover:text-foreground"
-            href="https://github.com/kguie"
+            href="/go/github"
             target="_blank"
             rel="noreferrer noopener"
           >
@@ -22,7 +21,7 @@ export async function SiteFooter() {
           </a>
           <a
             className="transition-colors hover:text-foreground"
-            href="https://linkedin.com/in/kguieba"
+            href="/go/linkedin"
             target="_blank"
             rel="noreferrer noopener"
           >
@@ -30,7 +29,7 @@ export async function SiteFooter() {
           </a>
           <a
             className="transition-colors hover:text-foreground"
-            href="mailto:kevin.guieba@gmail.com"
+            href="/go/contact"
             target="_blank"
             rel="noreferrer noopener"
           >
@@ -38,15 +37,24 @@ export async function SiteFooter() {
           </a>
           <a
             className="transition-colors hover:text-foreground"
-            href={cvUrl}
+            href="/go/cv"
             target="_blank"
             rel="noopener noreferrer"
             download
           >
-            {t("short")}
+            {tCv("short")}
           </a>
+          <CopyEmailAction
+            email="kevin.guieba@gmail.com"
+            label={tFooter("copyEmailAction")}
+            copiedLabel={tFooter("copiedLabel")}
+            className="text-xs text-muted-foreground/90 transition-colors hover:text-foreground"
+          />
         </div>
-        <p>© {year} Kévin Guieba. All rights reserved.</p>
+        <div className="text-center sm:text-right">
+          <p className="text-xs text-muted-foreground/85">{tFooter("responseLine")}</p>
+          <p>© {year} Kévin Guieba. All rights reserved.</p>
+        </div>
       </LayoutContainer>
     </footer>
   );

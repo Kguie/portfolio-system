@@ -1,10 +1,9 @@
 "use client";
 
 import type { VariantProps } from "class-variance-authority";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import { Button, buttonVariants } from "@/components/ui/button";
-import { getCvUrl } from "@/lib/cv";
 import { cn } from "@/lib/utils";
 
 type DownloadCvButtonProps = VariantProps<typeof buttonVariants> & {
@@ -16,9 +15,7 @@ export function DownloadCvButton({
   variant = "default",
   size = "default",
 }: DownloadCvButtonProps) {
-  const locale = useLocale();
   const t = useTranslations("Cv");
-  const cvUrl = getCvUrl(locale);
 
   return (
     <Button
@@ -28,7 +25,7 @@ export function DownloadCvButton({
       className={cn(className)}
     >
       <a
-        href={cvUrl}
+        href="/go/cv"
         target="_blank"
         rel="noopener noreferrer"
         download

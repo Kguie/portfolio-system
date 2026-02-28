@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import Link from "next/link";
 
-import { DownloadCvButton } from "@/components/download-cv-button";
+import { CopyEmailAction } from "@/components/copy-email-action";
 import { LayoutContainer } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { GlowCard, Panel } from "@/components/ui/panel";
 import { buildLocalizedMetadata } from "@/lib/seo";
-import { swapLocalePath } from "@/lib/locale-routing.mjs";
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -36,6 +34,12 @@ export default async function HirePage({ params }: PageProps) {
     t("bringPoint3"),
     t("bringPoint4"),
     t("bringPoint5"),
+  ];
+  const availabilityItems = [
+    t("availabilityPoint1"),
+    t("availabilityPoint2"),
+    t("availabilityPoint3"),
+    t("availabilityPoint4"),
   ];
   const stackItems = [
     t("stackItem1"),
@@ -77,6 +81,15 @@ export default async function HirePage({ params }: PageProps) {
             </GlowCard>
 
             <Panel className="p-6 text-left md:col-span-2">
+              <h2 className="text-xl font-semibold tracking-tight">{t("availabilityTitle")}</h2>
+              <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
+                {availabilityItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </Panel>
+
+            <Panel className="p-6 text-left md:col-span-2">
               <h2 className="text-xl font-semibold tracking-tight">{t("searchTitle")}</h2>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{t("searchPrimary")}</p>
               <p className="mt-2 text-sm text-muted-foreground/90">{t("searchSecondary")}</p>
@@ -102,17 +115,28 @@ export default async function HirePage({ params }: PageProps) {
             </GlowCard>
 
             <Panel className="p-6 text-left md:col-span-2">
-              <h2 className="text-xl font-semibold tracking-tight">{t("ctaTitle")}</h2>
-              <p className="mt-2 text-sm text-muted-foreground">{t("ctaSubtitle")}</p>
-              <div className="mt-5 flex flex-wrap gap-2.5">
-                <DownloadCvButton className="rounded-full px-5" />
-                <Button asChild variant="outline" className="rounded-full px-5">
-                  <a href="mailto:kevin.guieba@gmail.com">{t("emailCta")}</a>
-                </Button>
-                <Button asChild variant="outline" className="rounded-full px-5">
-                  <Link href={swapLocalePath("/projects", resolvedLocale)}>{t("projectsCta")}</Link>
+              <h2 className="text-xl font-semibold tracking-tight">{t("finalCtaTitle")}</h2>
+              <p className="mt-2 text-sm text-white/60">{t("responseLine")}</p>
+              <div className="mt-5">
+                <Button
+                  asChild
+                  className="group rounded-full px-5 shadow-[0_0_0_1px_rgba(125,211,252,0.22)] transition-shadow hover:shadow-[0_0_18px_rgba(34,211,238,0.28)]"
+                >
+                  <a href="/go/contact" className="inline-flex items-center gap-2">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden>
+                      <rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2" stroke="currentColor" strokeWidth="1.5" />
+                      <path d="m4.8 7.1 7.2 5.8 7.2-5.8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    {t("finalCtaButton")}
+                  </a>
                 </Button>
               </div>
+              <CopyEmailAction
+                email="kevin.guieba@gmail.com"
+                label={t("copyEmailAction")}
+                copiedLabel={t("copiedLabel")}
+                className="mt-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              />
             </Panel>
           </div>
         </section>
