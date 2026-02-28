@@ -55,7 +55,7 @@ function ArchitectureNode({
     );
 
   return (
-    <GlowCard className="group relative p-3.5 sm:p-4">
+    <Panel className="group relative p-3.5 sm:p-4">
       {connectRight ? (
         <span
           aria-hidden
@@ -78,7 +78,7 @@ function ArchitectureNode({
         </p>
       </div>
       <p className="mt-2 text-sm text-foreground/92">{subtitle}</p>
-    </GlowCard>
+    </Panel>
   );
 }
 
@@ -101,7 +101,7 @@ export default async function HomePage({ params }: PageProps) {
   const tHome = await getTranslations({ locale: resolvedLocale, namespace: "Home" });
 
   return (
-    <main className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden py-16">
+    <main className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden pb-16 pt-24 md:pt-32">
       <Spotlight />
       <LayoutContainer>
         <section className="relative isolate mx-auto w-full max-w-4xl text-center">
@@ -109,19 +109,16 @@ export default async function HomePage({ params }: PageProps) {
             aria-hidden
             className="pointer-events-none absolute left-1/2 top-3 -z-10 h-56 w-[78%] -translate-x-1/2 rounded-full bg-[radial-gradient(55%_62%_at_50%_50%,rgba(34,211,238,0.22),rgba(34,211,238,0.06)_45%,transparent_75%)] blur-2xl sm:h-64"
           />
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground sm:text-sm">
+          <h1 className="text-balance text-5xl font-bold uppercase tracking-wide text-white/90 md:text-7xl">
             {tHome("heroName")}
-          </p>
-          <p className="mt-2 text-sm font-normal tracking-[0.04em] text-foreground/76 sm:text-base">
+          </h1>
+          <p className="mt-4 text-xl font-medium tracking-[0.01em] text-white/80 md:text-2xl">
             {tHome("heroRole")}
           </p>
-          <p className="mx-auto mt-3 max-w-2xl text-xs text-muted-foreground/84 sm:text-sm">
+          <p className="mx-auto mt-1.5 max-w-2xl text-base text-white/70 md:text-lg">
             {tHome("heroSpecialization")}
           </p>
-          <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-7xl">
-            {tHome("headline")}
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
+          <p className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed text-white/60">
             {tHome("subheadline")}
           </p>
           <Panel className="mx-auto mt-6 flex max-w-fit flex-wrap items-center justify-center gap-2 rounded-full px-4 py-2 text-xs text-muted-foreground sm:text-sm">
@@ -134,7 +131,7 @@ export default async function HomePage({ params }: PageProps) {
             <span className="opacity-55">•</span>
             <span>{tHome("statusObservability")}</span>
           </Panel>
-          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <div className="rounded-full bg-gradient-to-r from-cyan-300/45 via-sky-300/35 to-cyan-300/45 p-[1px] shadow-[0_0_0_1px_rgba(125,211,252,0.22),0_0_22px_rgba(34,211,238,0.15)]">
               <Button asChild size="lg" className="rounded-full bg-background px-6 text-foreground hover:bg-background/90">
                 <Link href={swapLocalePath("/architecture", resolvedLocale)}>
@@ -149,6 +146,9 @@ export default async function HomePage({ params }: PageProps) {
             </Button>
             <DownloadCvButton variant="outline" size="lg" className="rounded-full px-6" />
           </div>
+          <p className="mx-auto mt-6 max-w-3xl text-center text-sm tracking-wide text-white/60 md:text-base">
+            {tHome("proofStrip")}
+          </p>
         </section>
 
         <section className="mx-auto mt-10 grid w-full max-w-6xl gap-4 md:grid-cols-5">
@@ -177,7 +177,7 @@ export default async function HomePage({ params }: PageProps) {
           <Panel className="order-1 md:col-span-2 p-6">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
-                <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
+                <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
                   {tHome("panelArchitectureTitle")}
                 </h2>
                 <p className="mt-2 max-w-2xl text-sm text-muted-foreground">

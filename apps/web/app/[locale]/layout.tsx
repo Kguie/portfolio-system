@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -14,6 +15,31 @@ type LocaleLayoutProps = {
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({ params }: LocaleLayoutProps): Promise<Metadata> {
+  const { locale } = await params;
+  const resolvedLocale = locale === "fr" ? "fr" : "en";
+  const brandTitle =
+    resolvedLocale === "fr"
+      ? "Kévin Guieba — Développeur Fullstack"
+      : "Kévin Guieba — Fullstack Developer";
+
+  return {
+    title: {
+      default: brandTitle,
+      template: `%s — ${brandTitle}`,
+    },
+    openGraph: {
+      title: brandTitle,
+      siteName: brandTitle,
+    },
+    icons: {
+      icon: "/favicon.ico",
+      shortcut: "/favicon.ico",
+      apple: "/favicon.ico",
+    },
+  };
 }
 
 export default async function LocaleLayout({

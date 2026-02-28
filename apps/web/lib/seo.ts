@@ -20,6 +20,12 @@ export function buildLocalizedMetadata({
   description,
   path,
 }: BuildLocalizedMetadataInput): Metadata {
+  const brandTitle =
+    locale === "fr"
+      ? "Kévin Guieba — Développeur Fullstack"
+      : "Kévin Guieba — Fullstack Developer";
+  const openGraphTitle = title === brandTitle ? title : `${title} — ${brandTitle}`;
+  const ogImage = "/og";
   const canonicalPath = withLocalePath(locale, path);
   const enPath = withLocalePath("en", path);
   const frPath = withLocalePath("fr", path);
@@ -36,12 +42,26 @@ export function buildLocalizedMetadata({
       },
     },
     openGraph: {
-      title,
+      title: openGraphTitle,
       description,
       url: canonicalPath,
       type: "website",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: brandTitle,
+        },
+      ],
       locale: locale === "fr" ? "fr_FR" : "en_US",
       alternateLocale: locale === "fr" ? ["en_US"] : ["fr_FR"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: openGraphTitle,
+      description,
+      images: [ogImage],
     },
   };
 }

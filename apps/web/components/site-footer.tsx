@@ -46,7 +46,7 @@ export async function SiteFooter() {
             {t("short")}
           </a>
         </div>
-        <p>© {year} Portfolio. All rights reserved.</p>
+        <p>© {year} Kévin Guieba. All rights reserved.</p>
       </LayoutContainer>
     </footer>
   );
