@@ -1,31 +1,47 @@
 # Système de découverte d'événements
 
-Une plateforme modulaire de découverte d'événements pour aider les utilisateurs à trouver des expériences pertinentes selon la ville et la catégorie.
+<div className="rounded-lg border border-cyan-300/30 bg-cyan-300/8 px-4 py-3 text-sm">
+  <strong>TL;DR :</strong> Nous avons conçu une architecture modulaire de découverte d'événements avec ingestion normalisée, recherche rapide à facettes et télémétrie opérationnelle. La v1 privilégie la fiabilité et la latence requête.
+</div>
 
-## Contexte
+## Problème
 
-Les équipes avaient besoin d'un moyen fiable d'agréger des événements provenant de plusieurs fournisseurs tout en gardant une recherche rapide aux heures de pointe.
+Les utilisateurs trouvaient difficilement des événements pertinents à cause de formats hétérogènes et d'une qualité de données variable selon les fournisseurs.
 
-## Réalisation
+## Exigences
 
-- Pipeline d'ingestion unifié pour les flux partenaires.
-- Couche de normalisation pour la taxonomie et les métadonnées des lieux.
-- API orientée requêtes pour la recherche, les facettes et le classement de pertinence.
+- Agréger les événements de plusieurs fournisseurs.
+- Normaliser les métadonnées (ville, catégorie, lieu, horaire).
+- Garantir une recherche rapide avec facettes.
+- Rendre les flux d'ingestion et de requête observables en production.
 
-## Extrait d'architecture
+## Architecture v1
 
-```ts
-export async function rechercherEvenements(requete: string) {
-  const normalisee = normaliserRequete(requete);
-  const resultats = await indexEvenements.search(normalisee, {
-    facets: ["ville", "categorie", "date"],
-    limit: 20,
-  });
-
-  return reclasserParFraicheur(resultats);
-}
+```text
+[Fournisseurs] -> [Workers d'ingestion] -> [Normalisation] -> [Postgres]
+                                                   -> [Index de recherche]
+[Mobile Expo] -> [API Go] -> [Recherche + Ranking] -> [Notifications FCM]
+                                     |
+                           [Métriques / Logs / Traces]
 ```
 
-## Résultat
+La v1 sépare ingestion et serving pour éviter qu'une instabilité fournisseur n'affecte directement la latence API.
 
-Le système a réduit le temps moyen de réponse et amélioré la qualité des contenus grâce à une normalisation cohérente des données.
+## Compromis clés
+
+- Normalisation stricte dès le départ : coût initial plus élevé, comportement recherche plus propre.
+- Ranking côté serveur plutôt que tri client : clients plus simples, backend plus complexe.
+- Personnalisation avancée reportée pour stabiliser la première mise en production.
+
+## Observabilité
+
+- Traces par requête sur API, ranking et appels recherche.
+- Tableaux de bord latence/erreurs par route et fournisseur.
+- Alertes de retard d'ingestion pour détecter les flux obsolètes.
+
+## Feuille de route
+
+- Ajouter des signaux de ranking orientés intention.
+- Renforcer la déduplication des entrées quasi identiques.
+- Introduire des expérimentations de pertinence avec évaluation offline.
+- Étendre l'orchestration des notifications par cohortes utilisateurs.

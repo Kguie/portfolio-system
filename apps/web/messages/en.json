@@ -10,8 +10,8 @@
   "Home": {
     "metaTitle": "Home",
     "metaDescription": "Portfolio homepage focused on architecture, projects, services, and collaboration.",
-    "headline": "Building resilient digital products that scale.",
-    "subheadline": "I design systems, ship full-stack products, and help teams move faster with confidence.",
+    "headline": "Designing scalable systems with clarity and reliability.",
+    "subheadline": "I deliver production-ready products with disciplined execution and a strong long-term quality mindset.",
     "statusLabel": "Status",
     "statusBuilding": "Building",
     "statusGoApi": "Go API",
@@ -19,7 +19,7 @@
     "statusObservability": "Observability",
     "panelArchitectureTitle": "System Architecture",
     "panelArchitectureSubtitle": "A compact node flow of the delivery stack, from mobile clients to platform systems.",
-    "panelArchitectureCta": "Open Architecture",
+    "panelArchitectureCta": "View architecture",
     "architectureFlowMobile": "Mobile",
     "architectureFlowApi": "API",
     "architectureFlowPlatform": "Postgres / FCM / Observability",
@@ -52,9 +52,20 @@
     "askSubtitle": "A lightweight assistant to locate architecture notes, project details, and implementation context.",
     "askPlaceholder": "Ask about architecture, projects, or delivery...",
     "askButton": "Ask",
-    "ctaArchitecture": "Explore Architecture",
+    "heroName": "Kévin Guieba",
+    "heroRole": "Fullstack Developer",
+    "heroSpecialization": "Specializing in Go, React Native & System Architecture",
+    "heroAvailability": "Based in Guadeloupe • Available remotely",
+    "aboutTitle": "About",
+    "aboutBody": "Backend-focused fullstack engineer with an architecture mindset. I build maintainable systems with strong long-term reliability and collaborate remotely from Guadeloupe.",
+    "impactTitle": "Impact",
+    "impactPoint1": "Led backend Go refactor initiatives to improve clarity and scalability.",
+    "impactPoint2": "Delivered production React Native features with end-to-end ownership.",
+    "impactPoint3": "Embedded observability thinking across delivery and operations.",
+    "impactPoint4": "Prioritized long-term quality over short-term patchwork.",
+    "ctaArchitecture": "View architecture",
     "ctaCaseStudy": "Read Case Study",
-    "ctaWorkWithMe": "Work With Me",
+    "ctaWorkWithMe": "Work with me",
     "architectureFlowServices": "Services",
     "architectureFlowServicesStack": "Domain orchestration",
     "metricsDemoNote": "Demo metrics",
@@ -118,6 +129,24 @@
         "bullet1": "Tracks latency, errors, and dependency health.",
         "bullet2": "Speeds diagnosis with correlated telemetry signals."
       }
+    },
+    "overviewSection": {
+      "title": "Overview",
+      "point1": "Single API gateway for mobile traffic.",
+      "point2": "Domain services isolate business workflows.",
+      "point3": "Platform integrations handled through adapters."
+    },
+    "decisionsSection": {
+      "title": "Key Decisions",
+      "point1": "Go API for predictable latency and simple ops.",
+      "point2": "Normalized event schema before indexing/search.",
+      "point3": "Observability by default on every request path."
+    },
+    "scalingSection": {
+      "title": "Scaling Scenarios",
+      "point1": "Horizontal API scale behind a stateless edge.",
+      "point2": "Async workers for ingestion and fan-out tasks.",
+      "point3": "Cache + query tuning for read-heavy traffic."
     }
   },
   "ProjectsPage": {
@@ -127,7 +156,29 @@
     "subtitle": "A curated set of shipped products, prototypes, and production experiences.",
     "comingSoonLabel": "Coming Soon",
     "comingSoonTitle": "Project case studies are being prepared",
-    "comingSoonBody": "Expect focused breakdowns of goals, implementation choices, and measurable outcomes."
+    "comingSoonBody": "Expect focused breakdowns of goals, implementation choices, and measurable outcomes.",
+    "moovon": {
+      "title": "MoovOn Case Study",
+      "summary": "Event discovery platform with ingestion, ranking, and real-time delivery constraints.",
+      "tag1": "Architecture",
+      "tag2": "Search",
+      "tag3": "Production"
+    },
+    "sofy": {
+      "title": "Sofy Systems",
+      "summary": "Placeholder project for modular workflow automation and cross-team operations.",
+      "tag1": "Automation",
+      "tag2": "B2B",
+      "tag3": "Placeholder"
+    },
+    "homelab": {
+      "title": "Home Lab",
+      "summary": "Personal infrastructure experiments for reliability, observability, and deployment ergonomics.",
+      "tag1": "Infra",
+      "tag2": "DevOps",
+      "tag3": "R&D"
+    },
+    "viewProjectCta": "Open"
   },
   "LabsPage": {
     "metaTitle": "Labs",
@@ -136,7 +187,20 @@
     "subtitle": "Experimental builds where I test ideas, workflows, and emerging tools.",
     "comingSoonLabel": "Coming Soon",
     "comingSoonTitle": "New experiments are on the way",
-    "comingSoonBody": "I am documenting selected prototypes and what they taught me about product velocity."
+    "comingSoonBody": "I am documenting selected prototypes and what they taught me about product velocity.",
+    "apiPlayground": {
+      "title": "API Playground",
+      "description": "Interact with core endpoints and inspect request/response behavior quickly."
+    },
+    "aiDemoTool": {
+      "title": "AI Demo Tool",
+      "description": "Prototype prompts, evaluate outputs, and test integration constraints."
+    },
+    "liveMetrics": {
+      "title": "Live Metrics",
+      "description": "Preview service health signals and runtime telemetry snapshots."
+    },
+    "openLabCta": "Open Lab"
   },
   "ServicesPage": {
     "metaTitle": "Services",
@@ -145,15 +209,70 @@
     "subtitle": "How I partner with teams on architecture, product delivery, and technical strategy.",
     "comingSoonLabel": "Coming Soon",
     "comingSoonTitle": "Service details will be published shortly",
-    "comingSoonBody": "I am finalizing scope, engagement models, and delivery formats for upcoming collaborations."
+    "comingSoonBody": "I am finalizing scope, engagement models, and delivery formats for upcoming collaborations.",
+    "deliverablesLabel": "Deliverables",
+    "goodForLabel": "Good for",
+    "mvp": {
+      "title": "MVP Delivery",
+      "summary": "Go from validated scope to shipped product fast.",
+      "deliverable1": "Delivery plan and milestone map",
+      "deliverable2": "Working MVP with release checklist",
+      "goodFor1": "Founders launching v1",
+      "goodFor2": "Teams needing fast market feedback"
+    },
+    "infra": {
+      "title": "Infra Architecture",
+      "summary": "Design and harden systems for reliability and scale.",
+      "deliverable1": "Service topology and environment strategy",
+      "deliverable2": "Observability and incident playbook baseline",
+      "goodFor1": "Products hitting growth bottlenecks",
+      "goodFor2": "Teams reducing platform risk"
+    },
+    "ai": {
+      "title": "AI Integration",
+      "summary": "Integrate practical AI features into existing products.",
+      "deliverable1": "Use-case framing and model interaction design",
+      "deliverable2": "Implementation blueprint and guardrails",
+      "goodFor1": "Products adding AI copilots/search",
+      "goodFor2": "Teams needing safe production rollout"
+    },
+    "contactCta": "Start a Conversation"
   },
   "HirePage": {
     "metaTitle": "Hire",
-    "metaDescription": "Work together on your next product, platform, or high-priority initiative.",
-    "title": "Hire",
-    "subtitle": "Let’s work together on your next product, platform, or high-priority initiative.",
-    "comingSoonLabel": "Coming Soon",
-    "comingSoonTitle": "Availability and engagement options coming soon",
-    "comingSoonBody": "I am preparing a concise overview of timelines, process, and ways to get started."
+    "metaDescription": "Fullstack profile targeting a full-time role with a strong backend component, long-term involvement, and remote/hybrid flexibility.",
+    "title": "Work Together",
+    "subtitle": "I am targeting a long-term role where I can lead backend execution, shape architecture decisions, and raise delivery standards over time.",
+    "locationLine": "Based in Guadeloupe, available for remote or hybrid collaboration.",
+    "whoTitle": "Who I am",
+    "whoBody": "I am a fullstack engineer with a strong backend and architecture core, focused on maintainability, observability, and long-term production quality.",
+    "bringTitle": "What I bring to a team",
+    "bringPoint1": "Architecture vision and long-term quality focus",
+    "bringPoint2": "Ability to deliver in product environments",
+    "bringPoint3": "Front / mobile / backend versatility",
+    "bringPoint4": "Observability and performance awareness",
+    "bringPoint5": "Clear communication and strong teamwork",
+    "searchTitle": "What I am looking for",
+    "searchPrimary": "A full-time fullstack role with a strong backend component, where I can own meaningful technical scope and contribute over the long term.",
+    "searchSecondary": "Long-term involvement, remote or hybrid.",
+    "careerTitle": "Background & Rigor",
+    "careerBody": "Part of my experience comes from a medical environment, where discipline, responsibility, and reliability of execution are essential.",
+    "stackTitle": "Stack & Specialties",
+    "stackItem1": "Go",
+    "stackItem2": "TypeScript",
+    "stackItem3": "React / React Native",
+    "stackItem4": "PostgreSQL",
+    "stackItem5": "Docker",
+    "stackItem6": "Kubernetes",
+    "stackItem7": "Observability",
+    "ctaTitle": "Let’s connect",
+    "ctaSubtitle": "Open to discussing long-term fullstack opportunities with strong backend ownership.",
+    "cvCta": "Download CV",
+    "emailCta": "Contact me",
+    "projectsCta": "Explore projects"
+  },
+  "Cv": {
+    "download": "Download CV",
+    "short": "CV"
   }
 }

@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import Link from "next/link";
 
 import { LayoutContainer } from "@/components/layout/container";
+import { Button } from "@/components/ui/button";
 import { GlowCard } from "@/components/ui/panel";
+import { swapLocalePath } from "@/lib/locale-routing.mjs";
+import { buildLocalizedMetadata } from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -16,16 +20,24 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     namespace: "ProjectsPage",
   });
 
-  return {
+  return buildLocalizedMetadata({
+    locale: resolvedLocale,
     title: t("metaTitle"),
     description: t("metaDescription"),
-  };
+    path: "/projects",
+  });
 }
 
 export default async function ProjectsPage({ params }: PageProps) {
   const { locale } = await params;
   const resolvedLocale = locale === "fr" ? "fr" : "en";
   const t = await getTranslations({ locale: resolvedLocale, namespace: "ProjectsPage" });
+
+  const projects = [
+    { key: "moovon", href: "/projects/event-discovery-system" },
+    { key: "sofy", href: "/projects" },
+    { key: "homelab", href: "/labs" },
+  ] as const;
 
   return (
     <main className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden py-16">
@@ -38,17 +50,38 @@ export default async function ProjectsPage({ params }: PageProps) {
             {t("subtitle")}
           </p>
 
-          <GlowCard className="mx-auto mt-12 max-w-2xl p-8 text-left">
-            <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-              {t("comingSoonLabel")}
-            </p>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-card-foreground">
-              {t("comingSoonTitle")}
-            </h2>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground sm:text-base">
-              {t("comingSoonBody")}
-            </p>
-          </GlowCard>
+          <div className="mx-auto mt-10 grid w-full max-w-5xl gap-4">
+            {projects.map((project) => (
+              <GlowCard key={project.key} className="p-5 text-left">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <h2 className="text-xl font-semibold tracking-tight">
+                      {t(`${project.key}.title`)}
+                    </h2>
+                    <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+                      {t(`${project.key}.summary`)}
+                    </p>
+                  </div>
+                  <Button asChild variant="outline" size="sm" className="rounded-full">
+                    <Link href={swapLocalePath(project.href, resolvedLocale)}>
+                      {t("viewProjectCta")}
+                    </Link>
+                  </Button>
+                </div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs text-muted-foreground">
+                    {t(`${project.key}.tag1`)}
+                  </span>
+                  <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs text-muted-foreground">
+                    {t(`${project.key}.tag2`)}
+                  </span>
+                  <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs text-muted-foreground">
+                    {t(`${project.key}.tag3`)}
+                  </span>
+                </div>
+              </GlowCard>
+            ))}
+          </div>
         </section>
       </LayoutContainer>
     </main>

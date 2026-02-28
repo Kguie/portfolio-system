@@ -3,10 +3,13 @@ import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
 import { Spotlight } from "@/components/aceternity/spotlight";
+import { AskPortfolioLazy } from "@/components/home/ask-portfolio-lazy";
+import { DownloadCvButton } from "@/components/download-cv-button";
 import { LayoutContainer } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { GlowCard, Panel } from "@/components/ui/panel";
 import { swapLocalePath } from "@/lib/locale-routing.mjs";
+import { buildLocalizedMetadata } from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -16,9 +19,15 @@ type ArchitectureNodeProps = {
   title: string;
   subtitle: string;
   kind: "mobile" | "api" | "services" | "platform";
+  connectRight?: boolean;
 };
 
-function ArchitectureNode({ title, subtitle, kind }: ArchitectureNodeProps) {
+function ArchitectureNode({
+  title,
+  subtitle,
+  kind,
+  connectRight = false,
+}: ArchitectureNodeProps) {
   const icon =
     kind === "mobile" ? (
       <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden>
@@ -47,6 +56,19 @@ function ArchitectureNode({ title, subtitle, kind }: ArchitectureNodeProps) {
 
   return (
     <GlowCard className="group relative p-3.5 sm:p-4">
+      {connectRight ? (
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -right-3 top-1/2 hidden h-px w-3 -translate-y-1/2 sm:block"
+        >
+          <span className="block h-px w-full bg-gradient-to-r from-cyan-300/55 to-cyan-300/0" />
+          <span className="absolute inset-0 blur-[1px] bg-cyan-300/35" />
+        </span>
+      ) : null}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 rounded-2xl border border-cyan-300/0 transition-colors group-hover:border-cyan-300/18"
+      />
       <div className="flex items-center gap-2">
         <span className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-cyan-300/25 bg-cyan-300/10 text-cyan-200 transition-colors group-hover:border-cyan-300/40 group-hover:text-cyan-100">
           {icon}
@@ -65,10 +87,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const resolvedLocale = locale === "fr" ? "fr" : "en";
   const t = await getTranslations({ locale: resolvedLocale, namespace: "Home" });
 
-  return {
+  return buildLocalizedMetadata({
+    locale: resolvedLocale,
     title: t("metaTitle"),
     description: t("metaDescription"),
-  };
+    path: "/",
+  });
 }
 
 export default async function HomePage({ params }: PageProps) {
@@ -85,7 +109,16 @@ export default async function HomePage({ params }: PageProps) {
             aria-hidden
             className="pointer-events-none absolute left-1/2 top-3 -z-10 h-56 w-[78%] -translate-x-1/2 rounded-full bg-[radial-gradient(55%_62%_at_50%_50%,rgba(34,211,238,0.22),rgba(34,211,238,0.06)_45%,transparent_75%)] blur-2xl sm:h-64"
           />
-          <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-7xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground sm:text-sm">
+            {tHome("heroName")}
+          </p>
+          <p className="mt-2 text-sm font-normal tracking-[0.04em] text-foreground/76 sm:text-base">
+            {tHome("heroRole")}
+          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-xs text-muted-foreground/84 sm:text-sm">
+            {tHome("heroSpecialization")}
+          </p>
+          <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-7xl">
             {tHome("headline")}
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
@@ -114,7 +147,30 @@ export default async function HomePage({ params }: PageProps) {
                 {tHome("ctaWorkWithMe")}
               </Link>
             </Button>
+            <DownloadCvButton variant="outline" size="lg" className="rounded-full px-6" />
           </div>
+        </section>
+
+        <section className="mx-auto mt-10 grid w-full max-w-6xl gap-4 md:grid-cols-5">
+          <Panel className="md:col-span-3 p-6 text-left">
+            <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
+              {tHome("aboutTitle")}
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              {tHome("aboutBody")}
+            </p>
+          </Panel>
+          <GlowCard className="md:col-span-2 p-6 text-left">
+            <h2 className="text-xl font-semibold tracking-tight">
+              {tHome("impactTitle")}
+            </h2>
+            <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
+              <li>{tHome("impactPoint1")}</li>
+              <li>{tHome("impactPoint2")}</li>
+              <li>{tHome("impactPoint3")}</li>
+              <li>{tHome("impactPoint4")}</li>
+            </ul>
+          </GlowCard>
         </section>
 
         <section className="mx-auto mt-14 grid w-full max-w-6xl gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -135,24 +191,24 @@ export default async function HomePage({ params }: PageProps) {
               </Button>
             </div>
             <div className="relative mt-5">
-              <div className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-1/2 hidden -translate-y-1/2 sm:block">
-                <div className="h-px bg-gradient-to-r from-cyan-300/0 via-cyan-300/45 to-cyan-300/0" />
-              </div>
               <div className="relative grid gap-3 sm:grid-cols-4">
                 <ArchitectureNode
                   kind="mobile"
                   title={tHome("architectureFlowMobile")}
                   subtitle="Expo"
+                  connectRight
                 />
                 <ArchitectureNode
                   kind="api"
                   title={tHome("architectureFlowApi")}
                   subtitle="Go"
+                  connectRight
                 />
                 <ArchitectureNode
                   kind="services"
                   title={tHome("architectureFlowServices")}
                   subtitle={tHome("architectureFlowServicesStack")}
+                  connectRight
                 />
                 <ArchitectureNode
                   kind="platform"
@@ -172,7 +228,7 @@ export default async function HomePage({ params }: PageProps) {
                 <p className="mt-2 text-sm text-muted-foreground">
                   {tHome("panelMetricsSubtitle")}
                 </p>
-                <p className="mt-2 text-xs text-muted-foreground/85">
+                <p className="mt-2 text-[11px] tracking-[0.02em] text-muted-foreground/65">
                   {tHome("metricsDemoNote")}
                 </p>
               </div>
@@ -180,25 +236,25 @@ export default async function HomePage({ params }: PageProps) {
             <div className="mt-5 grid grid-cols-2 gap-3">
               <GlowCard className="p-3">
                 <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">CPU</p>
-                <p className="mt-1 text-2xl font-semibold tracking-tight tabular-nums">{tHome("metricCpu")}</p>
-                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-muted/45">
-                  <div className="metric-shimmer h-full w-[43%] rounded-full bg-gradient-to-r from-cyan-300/65 via-cyan-200/70 to-cyan-300/60" />
+                <p className="mt-2 text-[1.65rem] font-semibold tracking-tight text-foreground tabular-nums">{tHome("metricCpu")}</p>
+                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-muted/35">
+                  <div className="metric-shimmer h-full w-[43%] rounded-full bg-gradient-to-r from-cyan-300/70 via-sky-200/62 to-sky-300/55" />
                 </div>
               </GlowCard>
               <GlowCard className="p-3">
                 <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Memory</p>
-                <p className="mt-1 text-2xl font-semibold tracking-tight tabular-nums">{tHome("metricMemory")}</p>
-                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-muted/45">
-                  <div className="metric-shimmer h-full w-[68%] rounded-full bg-gradient-to-r from-cyan-300/65 via-cyan-200/70 to-cyan-300/60" />
+                <p className="mt-2 text-[1.65rem] font-semibold tracking-tight text-foreground tabular-nums">{tHome("metricMemory")}</p>
+                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-muted/35">
+                  <div className="metric-shimmer h-full w-[68%] rounded-full bg-gradient-to-r from-cyan-300/70 via-sky-200/62 to-sky-300/55" />
                 </div>
               </GlowCard>
               <GlowCard className="p-3">
                 <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Requests</p>
-                <p className="mt-1 text-2xl font-semibold tracking-tight tabular-nums">{tHome("metricRequests")}</p>
+                <p className="mt-2 text-[1.65rem] font-semibold tracking-tight text-foreground tabular-nums">{tHome("metricRequests")}</p>
               </GlowCard>
               <GlowCard className="p-3">
                 <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Uptime</p>
-                <p className="mt-1 text-2xl font-semibold tracking-tight tabular-nums">{tHome("metricUptime")}</p>
+                <p className="mt-2 text-[1.65rem] font-semibold tracking-tight text-foreground tabular-nums">{tHome("metricUptime")}</p>
               </GlowCard>
             </div>
             <Button asChild variant="outline" size="sm" className="mt-5 w-full rounded-full">
@@ -299,22 +355,13 @@ export default async function HomePage({ params }: PageProps) {
                 </div>
               </div>
               <GlowCard className="p-4 sm:p-5">
-                <h3 className="text-base font-semibold tracking-tight">
-                  {tHome("askTitle")}
-                </h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {tHome("askSubtitle")}
-                </p>
-                <div className="mt-4 flex gap-2">
-                  <input
-                    type="text"
-                    placeholder={tHome("askPlaceholder")}
-                    className="h-9 w-full rounded-md border border-border/70 bg-background/70 px-3 text-sm text-foreground outline-none transition-colors focus:border-primary/60"
-                  />
-                  <Button size="sm" className="rounded-md px-4">
-                    {tHome("askButton")}
-                  </Button>
-                </div>
+                <AskPortfolioLazy
+                  locale={resolvedLocale}
+                  title={tHome("askTitle")}
+                  subtitle={tHome("askSubtitle")}
+                  placeholder={tHome("askPlaceholder")}
+                  buttonLabel={tHome("askButton")}
+                />
                 <Button asChild variant="outline" size="sm" className="mt-4 rounded-full">
                   <Link href={swapLocalePath("/labs", resolvedLocale)}>
                     {tHome("panelLabsCta")}

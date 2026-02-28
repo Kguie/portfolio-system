@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 
 import { LayoutContainer } from "@/components/layout/container";
 import { GlowCard, Panel } from "@/components/ui/panel";
+import { buildLocalizedMetadata } from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -16,10 +17,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     namespace: "ArchitecturePage",
   });
 
-  return {
+  return buildLocalizedMetadata({
+    locale: resolvedLocale,
     title: t("metaTitle"),
     description: t("metaDescription"),
-  };
+    path: "/architecture",
+  });
 }
 
 export default async function ArchitecturePage({ params }: PageProps) {
@@ -126,6 +129,33 @@ export default async function ArchitecturePage({ params }: PageProps) {
             </div>
           </div>
         </Panel>
+
+        <section className="mx-auto mt-6 grid w-full max-w-6xl gap-4 md:grid-cols-3">
+          <GlowCard className="p-5">
+            <h3 className="text-lg font-semibold tracking-tight">{t("overviewSection.title")}</h3>
+            <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
+              <li>{t("overviewSection.point1")}</li>
+              <li>{t("overviewSection.point2")}</li>
+              <li>{t("overviewSection.point3")}</li>
+            </ul>
+          </GlowCard>
+          <GlowCard className="p-5">
+            <h3 className="text-lg font-semibold tracking-tight">{t("decisionsSection.title")}</h3>
+            <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
+              <li>{t("decisionsSection.point1")}</li>
+              <li>{t("decisionsSection.point2")}</li>
+              <li>{t("decisionsSection.point3")}</li>
+            </ul>
+          </GlowCard>
+          <GlowCard className="p-5">
+            <h3 className="text-lg font-semibold tracking-tight">{t("scalingSection.title")}</h3>
+            <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
+              <li>{t("scalingSection.point1")}</li>
+              <li>{t("scalingSection.point2")}</li>
+              <li>{t("scalingSection.point3")}</li>
+            </ul>
+          </GlowCard>
+        </section>
       </LayoutContainer>
     </main>
   );

@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import type { Metadata } from "next";
 
 import { LayoutContainer } from "@/components/layout/container";
 import { Panel } from "@/components/ui/panel";
+import { buildLocalizedMetadata } from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -45,6 +47,26 @@ async function getTableOfContents(locale: "en" | "fr") {
     title: match[2].trim(),
     id: slugify(match[2]),
   }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const resolvedLocale = locale === "fr" ? "fr" : "en";
+  const title =
+    resolvedLocale === "fr"
+      ? "Étude de cas MoovOn"
+      : "MoovOn Case Study";
+  const description =
+    resolvedLocale === "fr"
+      ? "Architecture, compromis techniques et observabilité du système de découverte d'événements."
+      : "Architecture, technical trade-offs, and observability for the event discovery system.";
+
+  return buildLocalizedMetadata({
+    locale: resolvedLocale,
+    title,
+    description,
+    path: "/projects/event-discovery-system",
+  });
 }
 
 export default async function EventDiscoverySystemPage({ params }: PageProps) {
