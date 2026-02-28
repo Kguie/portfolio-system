@@ -1,7 +1,5 @@
-"use client";
-
 import type { VariantProps } from "class-variance-authority";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -10,12 +8,12 @@ type DownloadCvButtonProps = VariantProps<typeof buttonVariants> & {
   className?: string;
 };
 
-export function DownloadCvButton({
+export async function DownloadCvButton({
   className,
   variant = "default",
   size = "default",
 }: DownloadCvButtonProps) {
-  const t = useTranslations("Cv");
+  const t = await getTranslations("Cv");
 
   return (
     <Button

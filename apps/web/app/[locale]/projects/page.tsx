@@ -33,12 +33,6 @@ export default async function ProjectsPage({ params }: PageProps) {
   const resolvedLocale = locale === "fr" ? "fr" : "en";
   const t = await getTranslations({ locale: resolvedLocale, namespace: "ProjectsPage" });
 
-  const projects = [
-    { key: "moovon", href: "/projects/event-discovery-system" },
-    { key: "sofy", href: "/projects" },
-    { key: "homelab", href: "/labs" },
-  ] as const;
-
   return (
     <main className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden py-16">
       <LayoutContainer>
@@ -50,37 +44,41 @@ export default async function ProjectsPage({ params }: PageProps) {
             {t("subtitle")}
           </p>
 
-          <div className="mx-auto mt-10 grid w-full max-w-5xl gap-4">
-            {projects.map((project) => (
-              <GlowCard key={project.key} className="p-5 text-left">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <h2 className="text-xl font-semibold tracking-tight">
-                      {t(`${project.key}.title`)}
-                    </h2>
-                    <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-                      {t(`${project.key}.summary`)}
-                    </p>
-                  </div>
-                  <Button asChild variant="outline" size="sm" className="rounded-full">
-                    <Link href={swapLocalePath(project.href, resolvedLocale)}>
-                      {t("viewProjectCta")}
-                    </Link>
-                  </Button>
+          <div className="mx-auto mt-10 w-full max-w-5xl">
+            <GlowCard className="p-6 text-left">
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
+                    {t("featuredTitle")}
+                  </h2>
+                  <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">
+                    {t("featuredSummary")}
+                  </p>
                 </div>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs text-muted-foreground">
-                    {t(`${project.key}.tag1`)}
-                  </span>
-                  <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs text-muted-foreground">
-                    {t(`${project.key}.tag2`)}
-                  </span>
-                  <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs text-muted-foreground">
-                    {t(`${project.key}.tag3`)}
-                  </span>
-                </div>
-              </GlowCard>
-            ))}
+                <Button asChild variant="outline" size="sm" className="rounded-full">
+                  <Link href={swapLocalePath("/projects/event-discovery-system", resolvedLocale)}>
+                    {t("featuredCta")}
+                  </Link>
+                </Button>
+              </div>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs text-muted-foreground">
+                  Go API
+                </span>
+                <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs text-muted-foreground">
+                  Expo
+                </span>
+                <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs text-muted-foreground">
+                  Postgres
+                </span>
+                <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs text-muted-foreground">
+                  FCM
+                </span>
+                <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs text-muted-foreground">
+                  Observability
+                </span>
+              </div>
+            </GlowCard>
           </div>
         </section>
       </LayoutContainer>
