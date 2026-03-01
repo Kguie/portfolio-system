@@ -122,7 +122,10 @@ export default async function HirePage({ params }: PageProps) {
                   asChild
                   className="group rounded-full px-5 shadow-[0_0_0_1px_rgba(125,211,252,0.22)] transition-shadow hover:shadow-[0_0_18px_rgba(34,211,238,0.28)]"
                 >
-                  <a href="/go/contact" className="inline-flex items-center gap-2">
+                  <a
+                    href="mailto:kevin.guieba@gmail.com"
+                    className="inline-flex items-center gap-2"
+                  >
                     <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden>
                       <rect x="3.2" y="5.2" width="17.6" height="13.6" rx="2.2" stroke="currentColor" strokeWidth="1.5" />
                       <path d="m4.8 7.1 7.2 5.8 7.2-5.8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

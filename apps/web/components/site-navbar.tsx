@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 
@@ -27,11 +28,13 @@ type ExternalProfileLinkProps = {
 };
 
 function ExternalProfileLink({ href, label, icon }: ExternalProfileLinkProps) {
+  const isExternalWebLink = href.startsWith("https://");
+
   return (
     <a
       href={href}
-      target="_blank"
-      rel="noreferrer noopener"
+      target={isExternalWebLink ? "_blank" : undefined}
+      rel={isExternalWebLink ? "noreferrer" : undefined}
       aria-label={label}
       className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border/55 bg-background/35 text-foreground/70 transition-colors hover:border-cyan-300/28 hover:text-foreground"
     >
@@ -75,6 +78,7 @@ export function SiteNavbar({ locale }: SiteNavbarProps) {
   const tNav = useTranslations("Nav");
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const currentPath = pathname || "/";
   const activePath = normalizeForActivePath(currentPath);
@@ -84,6 +88,7 @@ export function SiteNavbar({ locale }: SiteNavbarProps) {
   const homeHref = swapLocalePath("/", locale);
   const enSwitchHref = query ? `${enHref}?${query}` : enHref;
   const frSwitchHref = query ? `${frHref}?${query}` : frHref;
+  const menuId = "mobile-site-nav";
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-[linear-gradient(180deg,rgba(10,14,22,0.78),rgba(10,14,22,0.56))] backdrop-blur-xl supports-[backdrop-filter]:bg-[linear-gradient(180deg,rgba(10,14,22,0.68),rgba(10,14,22,0.46))]">
@@ -96,47 +101,47 @@ export function SiteNavbar({ locale }: SiteNavbarProps) {
           >
             Kévin Guieba
           </Link>
-          <nav className="flex items-center gap-2">
-          {navItems.map((item) => {
-            const isActive =
-              activePath === item.href ||
-              activePath.startsWith(`${item.href}/`);
+          <nav className="hidden items-center gap-2 md:flex">
+            {navItems.map((item) => {
+              const isActive =
+                activePath === item.href ||
+                activePath.startsWith(`${item.href}/`);
 
-            return (
-              <Button
-                key={item.key}
-                asChild
-                variant="ghost"
-                size="sm"
-                className="group relative rounded-full px-3.5 font-medium tracking-[0.01em] text-foreground/82 transition-colors hover:text-foreground"
-              >
-                <Link href={swapLocalePath(item.href, locale)}>
-                  <span>{tNav(item.key)}</span>
-                  <span
-                    className={`pointer-events-none absolute inset-x-2 -bottom-1.5 h-[2px] rounded-full bg-gradient-to-r from-cyan-300/0 via-cyan-300/90 to-cyan-300/0 blur-[0.5px] transition-opacity duration-200 ${
-                      isActive ? "opacity-100" : "opacity-0 group-hover:opacity-70"
-                    }`}
-                  />
-                </Link>
-              </Button>
-            );
-          })}
+              return (
+                <Button
+                  key={item.key}
+                  asChild
+                  variant="ghost"
+                  size="sm"
+                  className="group relative rounded-full px-3.5 font-medium tracking-[0.01em] text-foreground/82 transition-colors hover:text-foreground"
+                >
+                  <Link href={swapLocalePath(item.href, locale)}>
+                    <span>{tNav(item.key)}</span>
+                    <span
+                      className={`pointer-events-none absolute inset-x-2 -bottom-1.5 h-[2px] rounded-full bg-gradient-to-r from-cyan-300/0 via-cyan-300/90 to-cyan-300/0 blur-[0.5px] transition-opacity duration-200 ${
+                        isActive ? "opacity-100" : "opacity-0 group-hover:opacity-70"
+                      }`}
+                    />
+                  </Link>
+                </Button>
+              );
+            })}
           </nav>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="hidden items-center gap-2 md:flex">
           <ExternalProfileLink
-            href="/go/github"
+            href="https://github.com/kguie"
             label="Open GitHub profile"
             icon="github"
           />
           <ExternalProfileLink
-            href="/go/linkedin"
+            href="https://www.linkedin.com/in/kguieba"
             label="Open LinkedIn profile"
             icon="linkedin"
           />
           <ExternalProfileLink
-            href="/go/contact"
+            href="mailto:kevin.guieba@gmail.com"
             label="Send email"
             icon="email"
           />
@@ -146,7 +151,88 @@ export function SiteNavbar({ locale }: SiteNavbarProps) {
             frHref={frSwitchHref}
           />
         </div>
+
+        <div className="flex items-center gap-2 md:hidden">
+          <LanguageSwitcherLazy
+            locale={locale}
+            enHref={enSwitchHref}
+            frHref={frSwitchHref}
+          />
+          <button
+            type="button"
+            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls={menuId}
+            onClick={() => setMobileMenuOpen((value) => !value)}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border/55 bg-background/35 text-foreground/85 transition-colors hover:text-foreground"
+          >
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden>
+              {mobileMenuOpen ? (
+                <path
+                  d="M6 6 18 18M18 6 6 18"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
+              ) : (
+                <path
+                  d="M4 7h16M4 12h16M4 17h16"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
+
+      {mobileMenuOpen ? (
+        <div
+          id={menuId}
+          className="absolute left-0 right-0 top-full z-50 border-b border-border/60 bg-[linear-gradient(180deg,rgba(10,14,22,0.98),rgba(10,14,22,0.9))] px-6 py-4 shadow-xl sm:px-8 md:hidden"
+        >
+          <nav className="flex flex-col gap-1">
+            {navItems.map((item) => {
+              const isActive =
+                activePath === item.href ||
+                activePath.startsWith(`${item.href}/`);
+
+              return (
+                <Link
+                  key={item.key}
+                  href={swapLocalePath(item.href, locale)}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`rounded-md px-3 py-2 text-sm font-medium tracking-[0.01em] transition-colors ${
+                    isActive
+                      ? "bg-cyan-300/12 text-foreground"
+                      : "text-foreground/82 hover:bg-white/5 hover:text-foreground"
+                  }`}
+                >
+                  {tNav(item.key)}
+                </Link>
+              );
+            })}
+          </nav>
+          <div className="mt-4 flex items-center gap-2">
+            <ExternalProfileLink
+              href="https://github.com/kguie"
+              label="Open GitHub profile"
+              icon="github"
+            />
+            <ExternalProfileLink
+              href="https://www.linkedin.com/in/kguieba"
+              label="Open LinkedIn profile"
+              icon="linkedin"
+            />
+            <ExternalProfileLink
+              href="mailto:kevin.guieba@gmail.com"
+              label="Send email"
+              icon="email"
+            />
+          </div>
+        </div>
+      ) : null}
     </header>
   );
 }

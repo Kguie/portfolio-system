@@ -13,25 +13,23 @@ export async function SiteFooter() {
         <div className="flex flex-wrap items-center gap-4">
           <a
             className="transition-colors hover:text-foreground"
-            href="/go/github"
+            href="https://github.com/kguie"
             target="_blank"
-            rel="noreferrer noopener"
+            rel="noreferrer"
           >
             GitHub
           </a>
           <a
             className="transition-colors hover:text-foreground"
-            href="/go/linkedin"
+            href="https://www.linkedin.com/in/kguieba"
             target="_blank"
-            rel="noreferrer noopener"
+            rel="noreferrer"
           >
             LinkedIn
           </a>
           <a
             className="transition-colors hover:text-foreground"
-            href="/go/contact"
-            target="_blank"
-            rel="noreferrer noopener"
+            href="mailto:kevin.guieba@gmail.com"
           >
             Email
           </a>

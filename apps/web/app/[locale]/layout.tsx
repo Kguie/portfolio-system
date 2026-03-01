@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -83,12 +82,7 @@ export default async function LocaleLayout({
       <SiteNavbar locale={locale} />
       {children}
       <SiteFooter />
-      {isProduction ? (
-        <>
-          <Analytics />
-          <SpeedInsights />
-        </>
-      ) : null}
+      {isProduction ? <SpeedInsights /> : null}
     </NextIntlClientProvider>
   );
 }

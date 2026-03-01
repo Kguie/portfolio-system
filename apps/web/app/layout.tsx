@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PostHogProviderWrapper } from "@/app/providers/posthog-provider";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
@@ -44,7 +45,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <PostHogProviderWrapper>{children}</PostHogProviderWrapper>
+      </body>
     </html>
   );
 }
