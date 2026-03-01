@@ -1,0 +1,49 @@
+{
+  "yaakVersion": "2025.5.5",
+  "yaakSchema": 4,
+  "timestamp": "2026-03-01T00:54:27.912053",
+  "resources": {
+    "workspaces": [
+      {
+        "model": "workspace",
+        "id": "wk_3hSiq2Rqhr",
+        "createdAt": "2026-03-01T00:48:58.849083",
+        "updatedAt": "2026-03-01T00:48:58.849084700",
+        "authentication": {},
+        "authenticationType": null,
+        "description": "",
+        "headers": [],
+        "name": "Portfolio",
+        "encryptionKeyChallenge": null,
+        "settingValidateCertificates": true,
+        "settingFollowRedirects": true,
+        "settingRequestTimeout": 0
+      }
+    ],
+    "environments": [],
+    "folders": [],
+    "httpRequests": [
+      {
+        "model": "http_request",
+        "id": "rq_4Hmi2ndwFb",
+        "createdAt": "2026-03-01T00:49:06.617479300",
+        "updatedAt": "2026-03-01T00:51:30.324025500",
+        "workspaceId": "wk_3hSiq2Rqhr",
+        "folderId": null,
+        "authentication": {},
+        "authenticationType": null,
+        "body": {},
+        "bodyType": null,
+        "description": "",
+        "headers": [],
+        "method": "GET",
+        "name": "",
+        "sortPriority": -1772326146614.0,
+        "url": "${[ BASE_URL ]}/health",
+        "urlParameters": []
+      }
+    ],
+    "grpcRequests": [],
+    "websocketRequests": []
+  }
+}

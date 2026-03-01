@@ -1,0 +1,27 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+cmd = "go build -o ./tmp/api ./cmd/api"
+bin = "./tmp/api"
+full_bin = "./tmp/api"
+include_ext = ["go", "mod", "sum", "toml"]
+exclude_dir = ["tmp", "vendor", "migrations", "ent", "node_modules"]
+exclude_file = []
+exclude_regex = ["_test\\.go"]
+delay = 200
+stop_on_error = true
+send_interrupt = true
+kill_delay = "500ms"
+
+[log]
+time = true
+
+[color]
+main = "cyan"
+watcher = "yellow"
+build = "green"
+runner = "magenta"
+
+[misc]
+clean_on_exit = true
