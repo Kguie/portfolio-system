@@ -34,3 +34,30 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Monitoring Integration (VictoriaMetrics)
+
+The app exposes a server-side monitoring endpoint at `/api/monitoring` that proxies
+VictoriaMetrics queries and returns a curated health payload.
+
+### Required Environment Variables
+
+```bash
+VM_BASE_URL=https://monitoring.kevinguieba.com
+VM_BASIC_USER=your_basic_auth_user
+VM_BASIC_PASS=your_basic_auth_password
+```
+
+### Security Notes
+
+- Monitoring requests are executed server-side only.
+- Basic Auth credentials are read from server environment variables and are never
+  sent to the frontend.
+- The API route uses a fixed internal PromQL query map, so client input cannot
+  inject arbitrary queries.
+
+### Example Test
+
+```bash
+curl https://yourdomain.com/api/monitoring
+```
