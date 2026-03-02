@@ -14,7 +14,7 @@ const requiredRoutePages = [
   "page.tsx",
   "architecture/page.tsx",
   "projects/page.tsx",
-  "projects/event-discovery-system/page.tsx",
+  "systeme/page.tsx",
   "labs/page.tsx",
   "services/page.tsx",
   "hire/page.tsx",
@@ -22,7 +22,7 @@ const requiredRoutePages = [
   "error.tsx",
 ];
 
-const navLinks = ["/architecture", "/projects", "/labs", "/services", "/hire"];
+const navLinks = ["/architecture", "/projects", "/systeme", "/services", "/hire"];
 
 test("required localized route files exist", () => {
   for (const routeFile of requiredRoutePages) {

@@ -43,7 +43,7 @@ VictoriaMetrics queries and returns a curated health payload.
 ### Required Environment Variables
 
 ```bash
-VM_BASE_URL=https://monitoring.kevinguieba.com
+VM_BASE_URL=https://<private-observability-endpoint>
 VM_BASIC_USER=your_basic_auth_user
 VM_BASIC_PASS=your_basic_auth_password
 ```

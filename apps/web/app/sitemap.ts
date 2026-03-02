@@ -9,14 +9,12 @@ const localizedRoutes = [
   "/fr/architecture",
   "/en/projects",
   "/fr/projects",
-  "/en/projects/event-discovery-system",
-  "/fr/projects/event-discovery-system",
   "/en/services",
   "/fr/services",
   "/en/hire",
   "/fr/hire",
-  "/en/labs",
-  "/fr/labs",
+  "/en/systeme",
+  "/fr/systeme",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

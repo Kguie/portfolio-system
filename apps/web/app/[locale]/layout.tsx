@@ -81,7 +81,7 @@ export default async function LocaleLayout({
     <NextIntlClientProvider locale={locale} messages={messages}>
       <SiteNavbar locale={locale} />
       {children}
-      <SiteFooter />
+      <SiteFooter locale={locale} />
       {isProduction ? <SpeedInsights /> : null}
     </NextIntlClientProvider>
   );

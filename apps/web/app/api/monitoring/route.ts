@@ -1,4 +1,9 @@
 import { NextResponse } from "next/server";
+import {
+  buildUnknownSnapshot,
+  computeMonitoringStatus,
+  toFiniteNumber,
+} from "@/lib/monitoring-utils";
 
 export const revalidate = 30;
 
@@ -7,6 +12,7 @@ const VM_BASIC_USER = process.env.VM_BASIC_USER;
 const VM_BASIC_PASS = process.env.VM_BASIC_PASS;
 
 const QUERY_TIMEOUT_MS = 5_000;
+const VM_QUERY_PATHS = ["api/v1/query", "prometheus/api/v1/query"] as const;
 
 // Fixed query map prevents PromQL injection from request input.
 const QUERIES = {
@@ -20,11 +26,6 @@ const QUERIES = {
     'sum(increase(kube_pod_container_status_restarts_total{namespace="prod"}[24h]))',
 } as const;
 
-function toFiniteNumber(value: unknown): number {
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : 0;
-}
-
 async function vmQuery(query: string): Promise<number> {
   if (!VM_BASE_URL || !VM_BASIC_USER || !VM_BASIC_PASS) {
     throw new Error("VictoriaMetrics environment variables are not configured.");
@@ -35,33 +36,42 @@ async function vmQuery(query: string): Promise<number> {
   const timeoutId = setTimeout(() => controller.abort(), QUERY_TIMEOUT_MS);
 
   try {
-    const endpoint = new URL("/api/v1/query", VM_BASE_URL);
-    endpoint.searchParams.set("query", query);
-
+    const baseUrl = VM_BASE_URL.endsWith("/") ? VM_BASE_URL : `${VM_BASE_URL}/`;
     const auth = Buffer.from(`${VM_BASIC_USER}:${VM_BASIC_PASS}`).toString(
       "base64",
     );
-    const response = await fetch(endpoint.toString(), {
-      method: "GET",
-      headers: {
-        Authorization: `Basic ${auth}`,
-      },
-      signal: controller.signal,
-    });
 
-    if (!response.ok) {
-      throw new Error(
-        `VictoriaMetrics request failed with status ${response.status}.`,
-      );
+    let lastErrorMessage = "unknown VictoriaMetrics error";
+
+    for (const queryPath of VM_QUERY_PATHS) {
+      const endpoint = new URL(queryPath, baseUrl);
+      endpoint.searchParams.set("query", query);
+
+      const response = await fetch(endpoint.toString(), {
+        method: "GET",
+        headers: {
+          Authorization: `Basic ${auth}`,
+        },
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        lastErrorMessage = `path=${queryPath} status=${response.status}`;
+        continue;
+      }
+
+      const payload = (await response.json()) as {
+        data?: { result?: Array<{ value?: [number, string] }> };
+      };
+      const raw = payload.data?.result?.[0]?.value?.[1];
+
+      // Missing/empty metric samples are treated as zero-value signals.
+      return toFiniteNumber(raw);
     }
 
-    const payload = (await response.json()) as {
-      data?: { result?: Array<{ value?: [number, string] }> };
-    };
-    const raw = payload.data?.result?.[0]?.value?.[1];
-
-    // Missing/empty metric samples are treated as zero-value signals.
-    return toFiniteNumber(raw);
+    throw new Error(
+      `VictoriaMetrics request failed for all known paths (${lastErrorMessage}).`,
+    );
   } catch (error) {
     if (error instanceof Error && error.name === "AbortError") {
       throw new Error("VictoriaMetrics request timed out.");
@@ -85,13 +95,20 @@ export async function GET() {
     ]);
 
     if (results.some((result) => result.status === "rejected")) {
+      results.forEach((result, index) => {
+        if (result.status === "rejected") {
+          console.error("VictoriaMetrics query failed", {
+            query: Object.keys(QUERIES)[index],
+            error:
+              result.reason instanceof Error
+                ? result.reason.message
+                : "unknown error",
+          });
+        }
+      });
+
       return NextResponse.json({
-        cpu_percent: 0,
-        memory_percent: 0,
-        disk_percent: 0,
-        pods_running: 0,
-        restarts_24h: 0,
-        status: "unknown",
+        ...buildUnknownSnapshot(),
       });
     }
 
@@ -99,12 +116,11 @@ export async function GET() {
       (result) => (result as PromiseFulfilledResult<number>).value,
     );
 
-    const status =
-      memory > 85 || restarts24h > 5
-        ? "critical"
-        : memory > 70 || cpu > 80
-          ? "degraded"
-          : "operational";
+    const status = computeMonitoringStatus({
+      cpu,
+      memory,
+      restarts24h,
+    });
 
     return NextResponse.json({
       cpu_percent: cpu,

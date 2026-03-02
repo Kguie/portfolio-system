@@ -16,7 +16,7 @@ type SiteNavbarProps = {
 const navItems = [
   { key: "architecture", href: "/architecture" },
   { key: "projects", href: "/projects" },
-  { key: "labs", href: "/labs" },
+  { key: "labs", href: "/systeme" },
   { key: "services", href: "/services" },
   { key: "hire", href: "/hire" },
 ] as const;

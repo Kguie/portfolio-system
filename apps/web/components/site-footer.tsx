@@ -1,11 +1,16 @@
-import { CopyEmailAction } from "@/components/copy-email-action";
 import { LayoutContainer } from "@/components/layout/container";
+import { MonitoringStatusBadge } from "@/components/monitoring-status-badge";
+import { getCvUrl } from "@/lib/cv";
 import { getTranslations } from "next-intl/server";
 
-export async function SiteFooter() {
+type SiteFooterProps = {
+  locale: "en" | "fr";
+};
+
+export async function SiteFooter({ locale }: SiteFooterProps) {
   const year = new Date().getFullYear();
   const tCv = await getTranslations("Cv");
-  const tFooter = await getTranslations("Footer");
+  const cvHref = getCvUrl(locale);
 
   return (
     <footer className="border-t border-border/70 bg-background/70">
@@ -35,22 +40,14 @@ export async function SiteFooter() {
           </a>
           <a
             className="transition-colors hover:text-foreground"
-            href="/go/cv"
-            target="_blank"
-            rel="noopener noreferrer"
+            href={cvHref}
             download
           >
             {tCv("short")}
           </a>
-          <CopyEmailAction
-            email="kevin.guieba@gmail.com"
-            label={tFooter("copyEmailAction")}
-            copiedLabel={tFooter("copiedLabel")}
-            className="text-xs text-muted-foreground/90 transition-colors hover:text-foreground"
-          />
         </div>
-        <div className="text-center sm:text-right">
-          <p className="text-xs text-muted-foreground/85">{tFooter("responseLine")}</p>
+        <div className="space-y-1 text-center sm:text-right">
+          <MonitoringStatusBadge />
           <p>© {year} Kévin Guieba. All rights reserved.</p>
         </div>
       </LayoutContainer>

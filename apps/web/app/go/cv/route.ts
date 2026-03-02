@@ -2,13 +2,11 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 import { resolveLocaleFromRequest } from "@/app/go/_lib/locale";
+import { getCvUrl } from "@/lib/cv";
 
 export function GET(request: NextRequest) {
   const locale = resolveLocaleFromRequest(request);
-  const destination =
-    locale === "fr"
-      ? "/cv/kevin-guieba-cv-fr-2026.pdf"
-      : "/cv/kevin-guieba-cv-en-2026.pdf";
+  const destination = getCvUrl(locale);
 
   return NextResponse.redirect(new URL(destination, request.url));
 }

@@ -22,9 +22,9 @@ export const portfolioQA: Record<SupportedLocale, QAEntry[]> = {
     },
     {
       id: "case-study-focus",
-      question: "What is the MoovOn case study about?",
+      question: "What is the primary case study in this portfolio?",
       answer:
-        "It details an event discovery system: ingestion normalization, fast facet search, ranking, and operational telemetry decisions.",
+        "The portfolio itself is the case study: architecture choices, delivery tradeoffs, monitoring integration, and production reliability decisions are documented directly across the site.",
     },
     {
       id: "services-offer",
@@ -66,9 +66,9 @@ export const portfolioQA: Record<SupportedLocale, QAEntry[]> = {
     },
     {
       id: "case-study-focus",
-      question: "De quoi parle l'étude de cas MoovOn ?",
+      question: "Quelle est l'étude de cas principale de ce portfolio ?",
       answer:
-        "Elle décrit un système de découverte d'événements : normalisation ingestion, recherche à facettes rapide, ranking et télémétrie opérationnelle.",
+        "Le portfolio lui-même est l'étude de référence : les choix d'architecture, compromis delivery, intégration monitoring et décisions de fiabilité production sont documentés directement dans le site.",
     },
     {
       id: "services-offer",

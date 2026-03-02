@@ -27,7 +27,7 @@ test("toLocalePath produces unprefixed english paths", () => {
 test("toLocalePath produces french-prefixed paths", () => {
   assert.equal(toLocalePath("/", "fr"), "/fr");
   assert.equal(toLocalePath("/projects", "fr"), "/fr/projects");
-  assert.equal(toLocalePath("/fr/labs", "fr"), "/fr/labs");
+  assert.equal(toLocalePath("/fr/systeme", "fr"), "/fr/systeme");
 });
 
 test("swapLocalePath switches from /fr to explicit /en", () => {
@@ -45,4 +45,15 @@ test("swapLocalePath switches between /en and /fr both ways", () => {
 
 test("swapLocalePath switches nested english path to explicit french path", () => {
   assert.equal(swapLocalePath("/en/architecture", "fr"), "/fr/architecture");
+});
+
+test("swapLocalePath preserves query and hash segments", () => {
+  assert.equal(
+    swapLocalePath("/fr/projects?tab=infra#metrics", "en"),
+    "/en/projects?tab=infra#metrics",
+  );
+});
+
+test("swapLocalePath supports non-standard locale values explicitly", () => {
+  assert.equal(swapLocalePath("/projects", "es"), "/es/projects");
 });

@@ -2,7 +2,7 @@
   "Nav": {
     "architecture": "Architecture",
     "projects": "Projects",
-    "labs": "Labs",
+    "labs": "System",
     "services": "Services",
     "hire": "Hire Me",
     "blog": "Blog"
@@ -12,6 +12,10 @@
     "metaDescription": "Portfolio homepage focused on architecture, projects, services, and collaboration.",
     "headline": "Designing scalable systems with clarity and reliability.",
     "subheadline": "I build production-ready applications across web, mobile and backend environments.",
+    "systemHeroTitle": "I design and operate backend systems in production.",
+    "systemHeroSubtitle": "Containerized Go API, domain architecture, k3s infrastructure, CI/CD, and operational observability. Next.js and Expo interfaces complete the product loop.",
+    "systemHeroCtaArchitecture": "View architecture",
+    "systemHeroCtaSystem": "Explore system",
     "statusLabel": "Status",
     "statusBuilding": "Building",
     "statusGoApi": "Go API",
@@ -25,29 +29,35 @@
     "architectureFlowPlatform": "Postgres / FCM / Observability",
     "architectureFlowPlatformStack": "Persistence, messaging, telemetry",
     "panelMetricsTitle": "Metrics",
-    "panelMetricsSubtitle": "Current runtime snapshot from the control surface.",
+    "panelMetricsSubtitle": "Live indicators from the system running this portfolio.",
     "metricCpu": "43%",
     "metricMemory": "68%",
     "metricRequests": "3.8k/min",
     "metricUptime": "99.97%",
-    "panelMetricsCta": "Open Labs",
-    "panelCaseStudyTitle": "MoovOn Case Study",
-    "panelCaseStudySubtitle": "A concise view of architecture decisions, delivery tradeoffs, and measurable outcomes.",
-    "panelCaseStudyCta": "Read Case Study",
-    "caseStudyPoint1": "Unified ingestion across multiple event providers.",
-    "caseStudyPoint2": "Search relevance improved with normalized metadata.",
-    "caseStudyPoint3": "Operational stability with observability-driven feedback loops.",
+    "panelMetricsCta": "View system",
+    "panelCaseStudyTitle": "Case Study: This Portfolio as a Production System",
+    "panelCaseStudySubtitle": "A complete product: frontend, backend, DevOps, and observability.",
+    "panelCaseStudyContext": "This portfolio is deployed as a real production-grade system. The architecture and metrics below refer to this live system.",
+    "panelCaseStudyCta": "See Architecture Notes",
+    "caseStudyPoint1": "Frontend: Next.js on Vercel",
+    "caseStudyPoint2": "Backend: Containerized Go API",
+    "caseStudyPoint3": "Orchestration: Kubernetes (k3s) on VPS",
+    "caseStudyPoint4": "Ingress + TLS: NGINX + cert-manager (Let's Encrypt)",
+    "caseStudyPoint5": "Observability: VictoriaMetrics + aggregated metrics endpoint",
+    "caseStudyPoint6": "CI/CD: Automated deployments",
+    "caseStudyPoint7": "DNS & Security: Cloudflare with a minimal public surface",
     "panelServicesTitle": "Services I Offer",
     "panelServicesSubtitle": "High-impact support across product, platform, and delivery.",
     "serviceItem1": "MVP Delivery",
     "serviceItem2": "Infra Architecture",
     "serviceItem3": "AI Integration",
     "panelServicesCta": "View Services",
-    "panelLabsTitle": "Dev Labs",
-    "panelLabsSubtitle": "Quick shortcuts into experiments, utilities, and observability-facing tools.",
-    "labsShortcut1": "API Playground",
-    "labsShortcut2": "AI Demo Tool",
-    "labsShortcut3": "Live Metrics",
+    "panelLabsTitle": "System",
+    "panelLabsSubtitle": "Ops showcase with live metrics, observability security, and architecture sheet.",
+    "labsShortcut1": "Live Metrics",
+    "labsShortcut3": "System Sheet",
+    "restrictedObservabilityNote": "Observability dashboards are not publicly exposed. The metrics shown here come from an aggregated endpoint.",
+    "restrictedAccessCta": "Restricted access",
     "askTitle": "Ask My Portfolio",
     "askSubtitle": "A lightweight assistant to locate architecture notes, project details, and implementation context.",
     "askPlaceholder": "Ask about architecture, projects, or delivery...",
@@ -66,12 +76,20 @@
     "impactPoint3": "Embedded observability thinking across delivery and operations.",
     "impactPoint4": "Prioritized long-term quality over short-term patchwork.",
     "ctaArchitecture": "View architecture",
-    "ctaCaseStudy": "Read Case Study",
+    "ctaCaseStudy": "See Build Notes",
     "ctaWorkWithMe": "Work with me",
     "architectureFlowServices": "Services",
     "architectureFlowServicesStack": "Domain orchestration",
-    "metricsDemoNote": "Demo metrics",
-    "panelLabsCta": "Open Labs"
+    "metricsDemoNote": "Live metrics",
+    "panelLabsCta": "Explore System",
+    "systemSheetTitle": "System Sheet",
+    "systemSheetLine1": "Backend: Containerized Go API, health endpoints, logs.",
+    "systemSheetLine2": "Cluster: k3s on VPS, namespaces, quotas/limits.",
+    "systemSheetLine3": "Ingress/TLS: nginx + cert-manager, Let's Encrypt ClusterIssuer.",
+    "systemSheetLine4": "Observability: VictoriaMetrics + private alerting, aggregated metrics endpoint.",
+    "systemSheetLine5": "Interfaces: Next.js (Vercel) + Expo as the product interface layer.",
+    "systemSheetLine6": "Ops: CI/CD, rollout/rollback, runbook kept private.",
+    "systemSheetLine7": "DNS & Security: Cloudflare, minimal public surface."
   },
   "ArchitecturePage": {
     "metaTitle": "Architecture",
@@ -153,22 +171,15 @@
   },
   "ProjectsPage": {
     "metaTitle": "Projects",
-    "metaDescription": "A curated set of shipped products, prototypes, and production project case studies.",
+    "metaDescription": "A concise overview of portfolio implementation decisions, architecture notes, and shipped capabilities.",
     "title": "Projects",
-    "subtitle": "A curated set of shipped products, prototypes, and production experiences.",
-    "featuredTitle": "MoovOn — Event Discovery System",
-    "featuredSummary": "A production-ready event discovery platform with scalable backend services.\nBuilt for reliable ingestion, search relevance, and operational visibility.",
-    "featuredCta": "Read case study",
+    "subtitle": "A focused look at how this portfolio is built, instrumented, and maintained in production.",
+    "featuredTitle": "Portfolio Architecture & Delivery",
+    "featuredSummary": "This portfolio is the primary reference implementation.\nIt combines App Router, API integrations, and observability with production-oriented quality controls.",
+    "featuredCta": "Open architecture",
     "comingSoonLabel": "Coming Soon",
-    "comingSoonTitle": "Project case studies are being prepared",
-    "comingSoonBody": "Expect focused breakdowns of goals, implementation choices, and measurable outcomes.",
-    "moovon": {
-      "title": "MoovOn Case Study",
-      "summary": "Event discovery platform with ingestion, ranking, and real-time delivery constraints.",
-      "tag1": "Architecture",
-      "tag2": "Search",
-      "tag3": "Production"
-    },
+    "comingSoonTitle": "Additional implementation notes are in progress",
+    "comingSoonBody": "Upcoming updates will document tradeoffs, performance choices, and operating patterns.",
     "sofy": {
       "title": "Sofy Systems",
       "summary": "Placeholder project for modular workflow automation and cross-team operations.",
@@ -186,26 +197,39 @@
     "viewProjectCta": "Open"
   },
   "LabsPage": {
-    "metaTitle": "Labs",
-    "metaDescription": "Experimental builds for testing product ideas, workflows, and emerging tools.",
-    "title": "Labs",
-    "subtitle": "Experimental builds where I test ideas, workflows, and emerging tools.",
+    "metaTitle": "System",
+    "metaDescription": "This portfolio is a production-grade case study across frontend, backend, devops, and observability.",
+    "title": "System",
+    "subtitle": "This portfolio is its own production-grade case study across frontend, backend, devops, and observability.",
     "comingSoonLabel": "Coming Soon",
     "comingSoonTitle": "New experiments are on the way",
     "comingSoonBody": "I am documenting selected prototypes and what they taught me about product velocity.",
     "apiPlayground": {
       "title": "API Playground",
-      "description": "Interact with core endpoints and inspect request/response behavior quickly."
+      "description": "Inspect core endpoints and runtime payloads used across the portfolio."
     },
     "aiDemoTool": {
-      "title": "AI Demo Tool",
-      "description": "Prototype prompts, evaluate outputs, and test integration constraints."
+      "title": "Assistant Sandbox",
+      "description": "Validate assistant prompts and portfolio QA behavior against real project content."
     },
     "liveMetrics": {
       "title": "Live Metrics",
-      "description": "Preview service health signals and runtime telemetry snapshots."
+      "description": "Read aggregated KPIs from /api/monitoring (CPU, memory, disk, pods, restarts, status).",
+      "internalCta": "View architecture context"
     },
-    "openLabCta": "Open Lab"
+    "restrictedObservabilityTitle": "Observability Access",
+    "restrictedObservabilityNote": "Observability dashboards are not publicly exposed. The metrics shown here come from an aggregated endpoint.",
+    "restrictedAccessCta": "Restricted access",
+    "systemSheet": {
+      "title": "System Sheet",
+      "line1": "Backend: Containerized Go API, health endpoints, logs.",
+      "line2": "Cluster: k3s on VPS, namespaces, quotas/limits.",
+      "line3": "Ingress/TLS: nginx + cert-manager, Let's Encrypt ClusterIssuer.",
+      "line4": "Observability: VictoriaMetrics + private alerting, aggregated metrics endpoint.",
+      "line5": "Interfaces: Next.js (Vercel) + Expo as the product interface layer.",
+      "line6": "Ops: CI/CD, rollout/rollback, runbook kept private.",
+      "line7": "DNS & Security: Cloudflare with limited public exposure."
+    }
   },
   "ServicesPage": {
     "metaTitle": "Services",
@@ -284,13 +308,30 @@
     "emailCta": "Contact me",
     "projectsCta": "Explore projects"
   },
-  "Footer": {
-    "responseLine": "I typically respond within 24–48 hours.",
-    "copyEmailAction": "Copy email address",
-    "copiedLabel": "Copied"
-  },
+  "Footer": {},
   "Cv": {
     "download": "Download CV",
     "short": "CV"
+  },
+  "LiveMetricsWidget": {
+    "stateLabel": "State",
+    "statusLabel": "Status",
+    "loading": "Loading...",
+    "unavailable": "Unavailable",
+    "statusOperational": "Operational",
+    "statusDegraded": "Degraded",
+    "statusCritical": "Critical",
+    "statusUnknown": "Unknown",
+    "cpu": "CPU",
+    "memory": "Memory",
+    "disk": "Disk",
+    "pods": "Pods"
+  },
+  "MonitoringBadge": {
+    "label": "Monitoring",
+    "operational": "Operational",
+    "degraded": "Degraded",
+    "critical": "Critical",
+    "unknown": "Unknown"
   }
 }

@@ -56,26 +56,26 @@ export default async function ProjectsPage({ params }: PageProps) {
                   </p>
                 </div>
                 <Button asChild variant="outline" size="sm" className="rounded-full">
-                  <Link href={swapLocalePath("/projects/event-discovery-system", resolvedLocale)}>
+                  <Link href={swapLocalePath("/architecture", resolvedLocale)}>
                     {t("featuredCta")}
                   </Link>
                 </Button>
               </div>
               <div className="mt-5 flex flex-wrap gap-2">
                 <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs text-muted-foreground">
-                  Go API
+                  Portfolio
                 </span>
                 <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs text-muted-foreground">
-                  Expo
+                  Architecture
                 </span>
                 <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs text-muted-foreground">
-                  Postgres
+                  Monitoring
                 </span>
                 <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs text-muted-foreground">
-                  FCM
+                  Delivery
                 </span>
                 <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs text-muted-foreground">
-                  Observability
+                  Reliability
                 </span>
               </div>
             </GlowCard>
